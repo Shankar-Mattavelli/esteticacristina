@@ -244,11 +244,16 @@ section { position: relative; }
 }
 
 .site-header__inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-md);
   height: var(--header-h);
+}
+
+.logo { grid-column: 1; justify-self: start; }
+
+.main-nav {
+  grid-column: 2;
 }
 
 .main-nav__list { display: flex; gap: var(--sp-lg); }
@@ -280,7 +285,16 @@ section { position: relative; }
 .main-nav__link:hover::after,
 .main-nav__link.is-active::after { transform: scaleX(1); }
 
-.header-cta { margin-inline-start: auto; }
+.header-cta {
+  grid-column: 3;
+  justify-self: end;
+  margin-inline-start: 0;
+}
+
+.nav-toggle {
+  grid-column: 3;
+  justify-self: end;
+}
 
 /* Mobile toggle */
 .nav-toggle {
@@ -290,6 +304,8 @@ section { position: relative; }
   gap: 5px;
   width: 28px;
   height: 22px;
+  grid-column: 3;
+  justify-self: end;
 }
 .nav-toggle__bar {
   display: block;
@@ -384,15 +400,18 @@ body.nav-open { overflow: hidden; }
   position: relative;
   z-index: 2;
   text-align: center;
-  padding-block: calc(var(--header-h) + var(--sp-xl)) var(--sp-xl);
+  /* padding-top sposta il centro visivo giù dell'altezza header */
+  padding-top: var(--header-h);
+  /* padding-bottom lascia spazio al hero__bottom ancorato in fondo */
+  padding-bottom: 9rem;
 }
 
 /* Initial hidden state — GSAP animates in */
 .hero__eyebrow,
 .hero__line,
 .hero__divider,
-.hero__subtitle,
 .hero__btn,
+.hero__subtitle,
 .hero__scroll { opacity: 0; }
 
 .hero__eyebrow {
@@ -423,23 +442,28 @@ body.nav-open { overflow: hidden; }
   margin-block: var(--sp-md) var(--sp-sm);
 }
 
+.hero__btn { margin-top: var(--sp-sm); }
+
+/* Bottom bar: subtitle + scroll, ancorato in fondo */
+.hero__bottom {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: var(--sp-lg);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-sm);
+}
+
 .hero__subtitle {
   font-size: var(--text-xs);
   letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--text-light-muted);
-  margin-bottom: var(--sp-md);
 }
 
-.hero__btn { margin-top: var(--sp-xs); }
-
 .hero__scroll {
-  position: absolute;
-  inset-inline: 0;
-  inset-block-end: var(--sp-lg);
-  margin-inline: auto;
-  width: fit-content;
-  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
