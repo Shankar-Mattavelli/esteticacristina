@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estetica Cristina | Centro Estetico a Busnago dal 1994</title>
+  <meta name="description" content="Estetica Cristina, da oltre 30 anni alla ricerca dell'avanguardia. Trattamenti viso e corpo personalizzati con tecnologie certificate a Busnago (MB)." />
+  <meta name="theme-color" content="#211d1a" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Estetica Cristina | Centro Estetico a Busnago dal 1994" />
+  <meta property="og:description" content="Vedere realizzati i vostri obiettivi di bellezza. Analisi personalizzata, tecnologie certificate, risultati concreti e misurabili." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="it_IT" />
+
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Vai al contenuto principale</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="site-header">
+    <div class="container site-header__inner">
+      <a href="#" class="logo" aria-label="Estetica Cristina, torna alla home">
+        <span class="logo__icon" aria-hidden="true"></span>
+        <span class="logo__text">estetica<strong>cristina</strong></span>
+      </a>
+
+      <nav class="main-nav" id="main-nav" aria-label="Navigazione principale">
+        <ul class="main-nav__list">
+          <li><a href="#mission" class="main-nav__link">Mission</a></li>
+          <li><a href="#tecnologie" class="main-nav__link">Tecnologie</a></li>
+          <li><a href="#servizi" class="main-nav__link">Servizi</a></li>
+          <li><a href="#team" class="main-nav__link">Team</a></li>
+          <li><a href="#contatti" class="main-nav__link">Contatti</a></li>
+        </ul>
+      </nav>
+
+      <a href="#contatti" class="btn btn--gold btn--small header-cta">Prenota ora</a>
+
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Apri il menu di navigazione">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+    </div>
+
+    <!-- Mobile navigation -->
+    <div class="mobile-nav" id="mobile-nav" data-state="closed">
+      <ul class="mobile-nav__list">
+        <li><a href="#mission" class="mobile-nav__link">Mission</a></li>
+        <li><a href="#tecnologie" class="mobile-nav__link">Tecnologie</a></li>
+        <li><a href="#servizi" class="mobile-nav__link">Servizi</a></li>
+        <li><a href="#team" class="mobile-nav__link">Team</a></li>
+        <li><a href="#contatti" class="mobile-nav__link">Contatti</a></li>
+      </ul>
+      <a href="#contatti" class="btn btn--gold mobile-nav__cta">Prenota ora</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero" aria-label="Sezione introduttiva">
+      <div class="hero__media" aria-hidden="true">
+        <img src="https://picsum.photos/id/1027/1920/1280" alt="" loading="eager" />
+      </div>
+      <div class="hero__overlay" aria-hidden="true"></div>
+
+      <div class="container hero__content">
+        <p class="eyebrow reveal">Il nostro desiderio:</p>
+        <h1 class="hero__title reveal">
+          Vedere realizzati i vostri<br />
+          <span class="text-gold">obiettivi di bellezza</span>
+        </h1>
+        <span class="hero__divider reveal" aria-hidden="true"></span>
+        <p class="hero__subtitle reveal">Via Manzoni 11, Busnago &middot; Dal 1994</p>
+      </div>
+
+      <a href="#stats" class="hero__scroll" aria-label="Scorri per scoprire di più">
+        <span>Scopri</span>
+        <span class="hero__scroll-line" aria-hidden="true"></span>
+      </a>
+    </section>
+
+    <!-- ============ STATS ============ -->
+    <section class="stats" id="stats" aria-label="I numeri del centro">
+      <div class="container">
+        <p class="eyebrow reveal">Il centro</p>
+        <div class="stats__grid">
+          <div class="stat reveal">
+            <span class="stat__number" data-count-to="30" data-suffix="+">0</span>
+            <span class="stat__label">Anni di ricerca</span>
+          </div>
+          <div class="stat reveal">
+            <span class="stat__number" data-count-to="5000" data-suffix="+">0</span>
+            <span class="stat__label">Clienti soddisfatti</span>
+          </div>
+          <div class="stat reveal">
+            <span class="stat__number" data-count-to="6">0</span>
+            <span class="stat__label">Tecnologie certificate</span>
+          </div>
+          <div class="stat reveal">
+            <span class="stat__number" data-count-to="50" data-suffix="+">0</span>
+            <span class="stat__label">Trattamenti disponibili</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MISSION ============ -->
+    <section class="mission" id="mission" aria-labelledby="mission-title">
+      <div class="container mission__grid">
+        <div class="mission__col reveal">
+          <p class="eyebrow">La nostra mission</p>
+          <h2 class="section-title" id="mission-title">
+            Oltre 30 anni<br />alla ricerca<br /><span class="text-gold">dell'avanguardia</span>
+          </h2>
+        </div>
+
+        <div class="mission__col reveal">
+          <p class="mission__text">
+            Estetica Cristina, da oltre 30 anni alla ricerca dell'avanguardia con particolare attenzione ai risultati concreti, oltre le mode del momento.
+          </p>
+          <p class="mission__text">
+            Le tecnologie fanno la differenza, unite ad un personale preparato e professionale che sa valorizzarle al meglio.
+          </p>
+
+          <ul class="check-list">
+            <li>Analisi personalizzata iniziale</li>
+            <li>Tecnologie certificate all'avanguardia</li>
+            <li>Percorsi dinamici su misura</li>
+            <li>Risultati concreti e misurabili</li>
+          </ul>
+
+          <blockquote class="quote-card">
+            <p>"Perché la bellezza, per trasparire dal nostro viso, deve riscoprirsi in principio in ognuno di noi&hellip;"</p>
+            <cite>&mdash; Estetica Cristina</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PERCHÉ SCEGLIERE NOI ============ -->
+    <section class="why-us" aria-labelledby="why-us-title">
+      <div class="why-us__media" aria-hidden="true">
+        <img src="https://picsum.photos/id/164/1920/900" alt="" loading="lazy" />
+      </div>
+
+      <div class="container why-us__content">
+        <p class="eyebrow reveal">Perché scegliere noi</p>
+        <h2 class="section-title reveal" id="why-us-title">La differenza che <span class="text-gold">si percepisce</span></h2>
+
+        <div class="why-us__grid">
+          <article class="why-card reveal">
+            <span class="why-card__number">01</span>
+            <h3>30 Anni di Esperienza</h3>
+            <p>Una storia costruita su risultati concreti, non su mode del momento.</p>
+          </article>
+          <article class="why-card reveal">
+            <span class="why-card__number">02</span>
+            <h3>Tecnologie Certificate</h3>
+            <p>Solo strumenti all'avanguardia, selezionati per efficacia e sicurezza.</p>
+          </article>
+          <article class="why-card reveal">
+            <span class="why-card__number">03</span>
+            <h3>Percorsi Personalizzati</h3>
+            <p>Ogni cliente è unico. Ogni percorso è disegnato su misura.</p>
+          </article>
+          <article class="why-card reveal">
+            <span class="why-card__number">04</span>
+            <h3>Consulenza Iniziale Gratuita</h3>
+            <p>Il primo incontro è senza impegno. Parliamo, poi decidiamo insieme.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TECNOLOGIE ============ -->
+    <section class="tecnologie" id="tecnologie" aria-labelledby="tecnologie-title">
+      <div class="container">
+        <p class="eyebrow reveal">Tecnologie innovative</p>
+        <h2 class="section-title reveal" id="tecnologie-title">Strumenti che <span class="text-gold">fanno la differenza</span></h2>
+
+        <div class="tech-grid">
+          <article class="tech-card reveal">
+            <div class="tech-card__media">
+              <img src="https://picsum.photos/id/1011/640/480" alt="Trattamento di endermologia LPG su schiena" loading="lazy" />
+              <span class="tech-card__tag">Corpo &amp; Viso</span>
+            </div>
+            <div class="tech-card__body">
+              <div class="tech-card__heading">
+                <h3>Endermologie LPG</h3>
+                <span class="tech-card__index">01</span>
+              </div>
+              <p>Massaggio meccanico brevettato che rimodella, drena e rivitalizza i tessuti in profondità.</p>
+              <a href="#contatti" class="link-arrow">Scopri</a>
+            </div>
+          </article>
+
+          <article class="tech-card reveal">
+            <div class="tech-card__media">
+              <img src="https://picsum.photos/id/1025/640/480" alt="Trattamento Synergy Personal Trainer sul viso" loading="lazy" />
+              <span class="tech-card__tag">Performance muscolare</span>
+            </div>
+            <div class="tech-card__body">
+              <div class="tech-card__heading">
+                <h3>Synergy Personal Trainer</h3>
+                <span class="tech-card__index">02</span>
+              </div>
+              <p>Stimolazione muscolare avanzata per un allenamento profondo senza sforzo fisico.</p>
+              <a href="#contatti" class="link-arrow">Scopri</a>
+            </div>
+          </article>
+
+          <article class="tech-card reveal">
+            <div class="tech-card__media">
+              <img src="https://picsum.photos/id/1062/640/480" alt="Trattamento di radiofrequenza viso" loading="lazy" />
+              <span class="tech-card__tag">Anti-età</span>
+            </div>
+            <div class="tech-card__body">
+              <div class="tech-card__heading">
+                <h3>Radiofrequenza</h3>
+                <span class="tech-card__index">03</span>
+              </div>
+              <p>Calore controllato per ricompattare i tessuti e stimolare la produzione di collagene.</p>
+              <a href="#contatti" class="link-arrow">Scopri</a>
+            </div>
+          </article>
+
+          <article class="tech-card reveal">
+            <div class="tech-card__media">
+              <img src="https://picsum.photos/id/1074/640/480" alt="Trattamento di elettrostimolazione" loading="lazy" />
+              <span class="tech-card__tag">Tonificazione</span>
+            </div>
+            <div class="tech-card__body">
+              <div class="tech-card__heading">
+                <h3>Elettrostimolazione</h3>
+                <span class="tech-card__index">04</span>
+              </div>
+              <p>Impulsi bioelettrici che lavorano sulle fibre muscolari per risultati visibili e duraturi.</p>
+              <a href="#contatti" class="link-arrow">Scopri</a>
+            </div>
+          </article>
+
+          <article class="tech-card reveal">
+            <div class="tech-card__media">
+              <img src="https://picsum.photos/id/1080/640/480" alt="Trattamento di epilazione con laser a diodo" loading="lazy" />
+              <span class="tech-card__tag">Epilazione</span>
+            </div>
+            <div class="tech-card__body">
+              <div class="tech-card__heading">
+                <h3>Laser a Diodo</h3>
+                <span class="tech-card__index">05</span>
+              </div>
+              <p>La tecnologia più efficace per l'epilazione permanente, sicura su ogni tipo di pelle.</p>
+              <a href="#contatti" class="link-arrow">Scopri</a>
+            </div>
+          </article>
+
+          <article class="tech-card reveal">
+            <div class="tech-card__media">
+              <img src="https://picsum.photos/id/342/640/480" alt="Trattamento di elettroporazione cosmetica" loading="lazy" />
+              <span class="tech-card__tag">Penetrazione cosmetica</span>
+            </div>
+            <div class="tech-card__body">
+              <div class="tech-card__heading">
+                <h3>Elettroporazione</h3>
+                <span class="tech-card__index">06</span>
+              </div>
+              <p>Apre i canali cellulari per massimizzare l'assorbimento degli attivi cosmetici.</p>
+              <a href="#contatti" class="link-arrow">Scopri</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SERVIZI: EDITORIAL ============ -->
+    <section id="servizi" aria-label="I nostri servizi">
+
+      <!-- 01 — Forma -->
+      <article class="editorial">
+        <div class="editorial__media reveal">
+          <img src="https://picsum.photos/id/177/1100/1200?grayscale" alt="Ritratto in bianco e nero, profilo di volto e collo" loading="lazy" />
+        </div>
+        <div class="editorial__content reveal">
+          <p class="eyebrow">01 &mdash; Forma</p>
+          <h2 class="section-title">Il corpo,<br />nella sua<br /><span class="text-gold">forma migliore</span></h2>
+          <p>Percorsi dinamici e obiettivi raggiungibili, nel rispetto e consapevolezza della propria figura.</p>
+          <p>Attrezzature specifiche per performance muscolare e stimolazione profonda del tessuto.</p>
+        </div>
+      </article>
+
+      <!-- Quote -->
+      <div class="quote-banner">
+        <div class="container">
+          <p class="quote-banner__mark" aria-hidden="true">&rdquo;</p>
+          <p class="quote-banner__text reveal">
+            La bellezza non è una tendenza da seguire.<br />
+            È una qualità da riscoprire.
+          </p>
+          <p class="quote-banner__cite reveal">Estetica Cristina</p>
+        </div>
+      </div>
+
+      <!-- 02 — Armonia -->
+      <article class="editorial editorial--reverse">
+        <div class="editorial__media reveal">
+          <img src="https://picsum.photos/id/91/1100/1200?grayscale" alt="Ritratto in bianco e nero, primo piano di occhio chiuso" loading="lazy" />
+        </div>
+        <div class="editorial__content reveal">
+          <p class="eyebrow">02 &mdash; Armonia</p>
+          <h2 class="section-title">Il viso,<br />espressione della<br /><span class="text-gold">bellezza interiore</span></h2>
+          <p>Trattamenti ad alta performance per attenuare i segni del tempo e rivitalizzare i tessuti.</p>
+          <p>È importante prendersene cura a tutte le età.</p>
+        </div>
+      </article>
+
+      <!-- 03 — Benessere -->
+      <div class="benessere">
+        <div class="benessere__media" aria-hidden="true">
+          <img src="https://picsum.photos/id/167/1920/1100?grayscale" alt="" loading="lazy" />
+        </div>
+        <div class="container benessere__content">
+          <p class="eyebrow reveal">03 &mdash; Benessere</p>
+          <h2 class="benessere__title reveal">Forma &amp; <span class="text-gold">Armonia</span></h2>
+          <span class="benessere__divider reveal" aria-hidden="true"></span>
+          <p class="benessere__text reveal">
+            Benessere fisico e psicologico. Grazie ai nostri percorsi personalizzati, ogni obiettivo diventa raggiungibile.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS ============ -->
+    <section class="testimonials" aria-labelledby="testimonials-title">
+      <div class="container">
+        <p class="eyebrow reveal">Clienti</p>
+        <h2 class="section-title reveal" id="testimonials-title">Le loro <span class="text-gold">parole</span></h2>
+
+        <div class="testimonials__grid">
+          <figure class="testimonial-card reveal">
+            <p class="testimonial-card__mark" aria-hidden="true">&rdquo;</p>
+            <blockquote>
+              <p>In dieci anni non avevo mai trovato risultati così evidenti. Il percorso personalizzato ha davvero cambiato la mia pelle.</p>
+            </blockquote>
+            <div class="testimonial-card__rating" role="img" aria-label="Valutazione 5 stelle su 5">★★★★★</div>
+            <figcaption>
+              <span class="testimonial-card__name">Elena C.</span>
+              <span class="testimonial-card__place">Milano</span>
+            </figcaption>
+          </figure>
+
+          <figure class="testimonial-card reveal">
+            <p class="testimonial-card__mark" aria-hidden="true">&rdquo;</p>
+            <blockquote>
+              <p>Professionalità e gentilezza al massimo livello. Mi sento accolta ogni volta come se fossi l'unica cliente.</p>
+            </blockquote>
+            <div class="testimonial-card__rating" role="img" aria-label="Valutazione 5 stelle su 5">★★★★★</div>
+            <figcaption>
+              <span class="testimonial-card__name">Francesca L.</span>
+              <span class="testimonial-card__place">Bergamo</span>
+            </figcaption>
+          </figure>
+
+          <figure class="testimonial-card reveal">
+            <p class="testimonial-card__mark" aria-hidden="true">&rdquo;</p>
+            <blockquote>
+              <p>L'epilazione laser ha superato ogni aspettativa. Finalmente libera, con risultati permanenti davvero percepibili.</p>
+            </blockquote>
+            <div class="testimonial-card__rating" role="img" aria-label="Valutazione 5 stelle su 5">★★★★★</div>
+            <figcaption>
+              <span class="testimonial-card__name">Sara M.</span>
+              <span class="testimonial-card__place">Monza</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EPILAZIONE ============ -->
+    <section class="epilazione" aria-labelledby="epilazione-title">
+      <div class="epilazione__media reveal">
+        <img src="https://picsum.photos/id/1066/900/1100" alt="Gambe e piedi, pelle liscia dopo epilazione" loading="lazy" />
+      </div>
+      <div class="container">
+        <div class="epilazione__content reveal">
+          <p class="eyebrow">Epilazione permanente</p>
+          <h2 class="section-title" id="epilazione-title">Libere<br /><span class="text-gold">per sempre</span></h2>
+
+          <ol class="numbered-list">
+            <li>
+              <span class="numbered-list__index">01</span>
+              <div>
+                <h3>Tecnologia laser a diodo</h3>
+                <p>La più efficace sul mercato per ogni fototipo</p>
+              </div>
+            </li>
+            <li>
+              <span class="numbered-list__index">02</span>
+              <div>
+                <h3>Pianificazione computerizzata</h3>
+                <p>Ogni percorso costruito sui tuoi parametri</p>
+              </div>
+            </li>
+            <li>
+              <span class="numbered-list__index">03</span>
+              <div>
+                <h3>Riduzione permanente</h3>
+                <p>Fino al 90% di riduzione del pelo trattato</p>
+              </div>
+            </li>
+            <li>
+              <span class="numbered-list__index">04</span>
+              <div>
+                <h3>Tempi e costi contenuti</h3>
+                <p>Efficiente, rapido, accessibile</p>
+              </div>
+            </li>
+            <li>
+              <span class="numbered-list__index">05</span>
+              <div>
+                <h3>Alternativa per recidive</h3>
+                <p>Soluzioni personalizzate per i casi complessi</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TEAM ============ -->
+    <section class="team" id="team" aria-labelledby="team-title">
+      <div class="container">
+        <p class="eyebrow reveal">Il team</p>
+        <h2 class="section-title reveal" id="team-title">I nostri <span class="text-gold">specialisti</span></h2>
+
+        <div class="team__grid">
+          <article class="team-card reveal">
+            <div class="team-card__media">
+              <img src="https://i.pravatar.cc/480?img=47" alt="Ritratto della Dr.ssa Alessandra Moretti" loading="lazy" />
+            </div>
+            <h3>Dr.ssa Alessandra Moretti</h3>
+            <p class="team-card__role">Dermatologa</p>
+            <p class="team-card__exp">18 anni di esperienza</p>
+          </article>
+
+          <article class="team-card reveal">
+            <div class="team-card__media">
+              <img src="https://i.pravatar.cc/480?img=32" alt="Ritratto del Dr. Marco Ferretti" loading="lazy" />
+            </div>
+            <h3>Dr. Marco Ferretti</h3>
+            <p class="team-card__role">Chirurgo Estetico</p>
+            <p class="team-card__exp">22 anni di esperienza</p>
+          </article>
+
+          <article class="team-card reveal">
+            <div class="team-card__media">
+              <img src="https://i.pravatar.cc/480?img=44" alt="Ritratto della Dr.ssa Claudia Ricci" loading="lazy" />
+            </div>
+            <h3>Dr.ssa Claudia Ricci</h3>
+            <p class="team-card__role">Nutrizionista</p>
+            <p class="team-card__exp">12 anni di esperienza</p>
+          </article>
+
+          <article class="team-card reveal">
+            <div class="team-card__media">
+              <img src="https://i.pravatar.cc/480?img=25" alt="Ritratto di Valentina Esposito" loading="lazy" />
+            </div>
+            <h3>Valentina Esposito</h3>
+            <p class="team-card__role">Dermopigmentista</p>
+            <p class="team-card__exp">10 anni di esperienza</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <p class="eyebrow reveal">FAQ</p>
+        <h2 class="section-title reveal" id="faq-title">Domande <span class="text-gold">frequenti</span></h2>
+
+        <div class="accordion reveal" id="faq-accordion">
+          <div class="accordion__item">
+            <h3 class="accordion__heading">
+              <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="faq-panel-1" id="faq-control-1">
+                Come funziona la consulenza iniziale?
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-panel-1" role="region" aria-labelledby="faq-control-1">
+              <p class="accordion__panel-inner">La prima consulenza è gratuita e senza impegno: analizziamo le tue esigenze, la tua pelle e i tuoi obiettivi per costruire insieme il percorso più adatto a te.</p>
+            </div>
+          </div>
+
+          <div class="accordion__item">
+            <h3 class="accordion__heading">
+              <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="faq-panel-2" id="faq-control-2">
+                Quante sedute sono necessarie per l'epilazione?
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-panel-2" role="region" aria-labelledby="faq-control-2">
+              <p class="accordion__panel-inner">In media sono necessarie dalle 6 alle 10 sedute, in base alla zona trattata, al fototipo e al tipo di pelo. Il piano viene definito durante la pianificazione computerizzata.</p>
+            </div>
+          </div>
+
+          <div class="accordion__item">
+            <h3 class="accordion__heading">
+              <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="faq-panel-3" id="faq-control-3">
+                I trattamenti sono adatti a tutti i tipi di pelle?
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-panel-3" role="region" aria-labelledby="faq-control-3">
+              <p class="accordion__panel-inner">Sì. Le nostre tecnologie sono certificate e calibrabili in base al fototipo e alla sensibilità della pelle, sempre dopo un'analisi personalizzata iniziale.</p>
+            </div>
+          </div>
+
+          <div class="accordion__item">
+            <h3 class="accordion__heading">
+              <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="faq-panel-4" id="faq-control-4">
+                Qual è la differenza tra LPG e altri massaggi?
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-panel-4" role="region" aria-labelledby="faq-control-4">
+              <p class="accordion__panel-inner">L'Endermologie LPG è un massaggio meccanico brevettato che lavora in profondità sui tessuti, con risultati misurabili su drenaggio, rimodellamento e tonicità, non ottenibili con un massaggio manuale.</p>
+            </div>
+          </div>
+
+          <div class="accordion__item">
+            <h3 class="accordion__heading">
+              <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="faq-panel-5" id="faq-control-5">
+                Come si prenota un appuntamento?
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-panel-5" role="region" aria-labelledby="faq-control-5">
+              <p class="accordion__panel-inner">Puoi chiamarci, scriverci o utilizzare il pulsante "Prenota ora" in alto: ti ricontatteremo per fissare la tua consulenza iniziale gratuita.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRODOTTI ============ -->
+    <section class="prodotti" aria-labelledby="prodotti-title">
+      <div class="prodotti__media" aria-hidden="true">
+        <img src="https://picsum.photos/id/312/1920/700" alt="" loading="lazy" />
+      </div>
+
+      <div class="container prodotti__grid">
+        <div class="prodotti__content reveal">
+          <p class="eyebrow">Prodotti</p>
+          <h2 class="section-title" id="prodotti-title">
+            SurgicTouch&reg;<br /><span class="text-gold">Cosmeceutica</span><br />professionale
+          </h2>
+          <p class="prodotti__text">
+            Formulata dal Dott. Nicola Pittoni, Chirurgo Estetico e Dermatologo, per completare e amplificare i risultati dei trattamenti in cabina.
+          </p>
+          <ul class="check-list check-list--light">
+            <li>Pelle in salute duratura</li>
+            <li>Aspetto visibilmente più giovane</li>
+            <li>Prevenzione attiva dell'invecchiamento</li>
+          </ul>
+        </div>
+
+        <div class="prodotti__image reveal">
+          <img src="https://picsum.photos/id/431/700/700" alt="Linea di sieri cosmeceutici Ela De Pure in flaconi con contagocce" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="cta" id="contatti" aria-labelledby="cta-title">
+      <div class="container cta__content">
+        <p class="eyebrow reveal">Inizia oggi</p>
+        <h2 class="cta__title reveal" id="cta-title">
+          Il tuo percorso verso<br />
+          <span class="text-gold">la versione migliore</span><br />
+          di te inizia qui.
+        </h2>
+        <p class="cta__text reveal">Consulenza iniziale gratuita, senza impegno. Parliamo di te, dei tuoi obiettivi, di come possiamo aiutarti.</p>
+
+        <div class="cta__actions reveal">
+          <a href="tel:+390396956275" class="btn btn--gold">Chiama ora</a>
+          <a href="mailto:info@estetica-cristina.com" class="btn btn--outline">Scrivi un messaggio</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="footer-col">
+          <h2 class="footer-col__title">Dove siamo</h2>
+          <address>
+            Via Manzoni 11<br />
+            Busnago (MB)<br />
+            Italia
+          </address>
+        </div>
+
+        <div class="footer-col">
+          <h2 class="footer-col__title">Contatti</h2>
+          <p><a href="tel:+390396956275">+39 039 69 56 275</a></p>
+          <p><a href="mailto:info@estetica-cristina.com">info@estetica-cristina.com</a></p>
+        </div>
+
+        <div class="footer-col">
+          <h2 class="footer-col__title">Orari</h2>
+          <p>Lun &ndash; Ven: 9:00 &ndash; 19:00</p>
+          <p>Sabato: 9:00 &ndash; 17:00</p>
+          <p class="footer-col__note">Su appuntamento</p>
+        </div>
+      </div>
+
+      <div class="site-footer__bottom">
+        <a href="#" class="logo logo--footer" aria-label="Estetica Cristina, torna alla home">
+          <span class="logo__icon" aria-hidden="true"></span>
+          <span class="logo__text">estetica<strong>cristina</strong></span>
+        </a>
+        <p class="site-footer__copy">&copy; 2026 Estetica Cristina &middot; P.IVA 00000000000</p>
+      </div>
+    </div>
+  </footer>
+
+  <button type="button" class="back-to-top" id="back-to-top" aria-label="Torna in cima alla pagina">↑</button>
+
+  <script src="js/script.js" defer></script>
+</body>
+</html>
