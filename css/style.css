@@ -254,18 +254,14 @@ section {
   letter-spacing: -0.01em;
 }
 
-.logo__icon {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: linear-gradient(90deg, var(--color-text-light) 50%, transparent 50%);
-  border: 1px solid var(--color-gold);
-  flex-shrink: 0;
+.logo__img {
+  height: 44px;
+  width: auto;
+  display: block;
 }
 
-.logo__text strong {
-  color: var(--color-gold);
-  font-weight: 700;
+.logo--footer .logo__img {
+  height: 56px;
 }
 
 /* Header */
