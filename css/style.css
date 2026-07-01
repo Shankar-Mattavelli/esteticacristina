@@ -201,10 +201,15 @@ h2 .text-gold {
     0 0  24px rgba(194, 168, 130, 0.32),
     0 0  60px rgba(194, 168, 130, 0.18),
     0 0 110px rgba(194, 168, 130, 0.09);
-  /* Continuo, alternate → nessun salto al reset.
-     La durata base è 5s; il JS aggiunge animation-delay randomico per
-     disincronizzare ogni parola e dare naturalezza al movimento. */
+  /* Fallback: animazione CSS solo quando il JS non ha ancora preso il controllo.
+     Appena JS aggiunge .js-controlled, l'animazione si disabilita e
+     --shimmer-x viene pilotato dal mouse via requestAnimationFrame. */
   animation: goldRadialSweep 5s ease-in-out infinite alternate;
+}
+.text-gold.js-controlled,
+h1 em.text-gold.js-controlled,
+h2 .text-gold.js-controlled {
+  animation: none;
 }
 
 .eyebrow {
@@ -433,25 +438,25 @@ body.nav-open { overflow: hidden; }
 }
 
 /* Overlay: vignette radiale (centro aperto → viso visibile) +
-   fade verticale che sfuma nel colore #767676 delle sezioni successive. */
+   fade verticale ampio che sfuma dolcemente in #767676. */
 .hero__overlay {
   position: absolute;
   inset: 0;
   background:
-    /* Vignette radiale: bordi scuri, centro quasi trasparente → viso definito */
     radial-gradient(
       ellipse 70% 60% at 50% 42%,
       rgba(26,24,22,0.00) 0%,
       rgba(26,24,22,0.08) 35%,
-      rgba(26,24,22,0.55) 75%,
-      rgba(26,24,22,0.78) 100%
+      rgba(26,24,22,0.52) 72%,
+      rgba(26,24,22,0.72) 100%
     ),
-    /* Fade verticale: trasparente → #767676 (colore sezione Il Centro) */
+    /* Fade inizia al 40% — transizione più ampia e dolce verso #767676 */
     linear-gradient(
       180deg,
       rgba(118,118,118,0.00) 0%,
-      rgba(118,118,118,0.00) 52%,
-      rgba(118,118,118,0.45) 76%,
+      rgba(118,118,118,0.00) 40%,
+      rgba(118,118,118,0.30) 62%,
+      rgba(118,118,118,0.70) 82%,
       #767676 100%
     );
   z-index: 1;
@@ -982,47 +987,70 @@ body.nav-open { overflow: hidden; }
   color: var(--text-light-muted);
 }
 
-/* ─── 16. Testimonials — scroll orizzontale GSAP ────────────── */
+/* ─── 16. Testimonials — doppia riga marquee infinita ──────────
+   Riga 1 → scorre verso sinistra
+   Riga 2 → scorre verso destra (direzione opposta)
+   Le card sono duplicate nell'HTML per il loop seamless.
+   Hover: animazione in pausa.
+   ─────────────────────────────────────────────────────────────── */
+@keyframes marqueeLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marqueeRight {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
 .testimonials {
   background-color: var(--bg-light-2);
-  /* Altezza gestita da GSAP pin (aggiunge spazio automaticamente) */
+  padding-block: var(--sp-xxl);
+  overflow: hidden;
 }
 .testimonials .eyebrow { color: var(--color-tortora); }
 .testimonials .section-title { color: var(--text-dark); }
 
 .testimonials__header {
-  padding-top: var(--sp-xxl);
-  padding-bottom: var(--sp-lg);
+  padding-bottom: var(--sp-xl);
 }
 
-/* Track orizzontale: contiene tutte le card in fila */
-.testimonials__track {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.6rem;
-  padding-inline: var(--pad-x);
-  padding-bottom: var(--sp-xxl);
-  will-change: transform;
+/* Ogni riga: overflow hidden per nascondere le card fuori schermo */
+.testimonials__row {
+  overflow: hidden;
+  padding-block: 0.6rem;
 }
+.testimonials__row + .testimonials__row { margin-top: 1.4rem; }
+
+/* Inner: larghezza dinamica (card × 2 set) */
+.testimonials__inner {
+  display: flex;
+  gap: 1.4rem;
+  width: max-content;
+}
+
+.testimonials__row--1 .testimonials__inner {
+  animation: marqueeLeft 48s linear infinite;
+}
+.testimonials__row--2 .testimonials__inner {
+  animation: marqueeRight 52s linear infinite; /* durata diversa: sinergia visiva */
+}
+
+/* Pausa al hover — permette lettura */
+.testimonials__row:hover .testimonials__inner { animation-play-state: paused; }
 
 .testimonial-card {
-  flex: 0 0 340px;
+  flex: 0 0 320px;
   background-color: var(--bg-light);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-sm);
-  padding: var(--sp-lg) var(--sp-md) var(--sp-md);
-}
-
-/* Scacchiera: card pari slittano verso il basso */
-.testimonials__track .testimonial-card:nth-child(even) {
-  margin-top: 3.5rem;
+  padding: var(--sp-md) var(--sp-md) var(--sp-sm);
 }
 
 .testimonial-card__source {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--sp-md);
+  margin-bottom: var(--sp-sm);
 }
 
 .testimonial-card__platform {
@@ -1036,22 +1064,22 @@ body.nav-open { overflow: hidden; }
 .testimonial-card__rating {
   color: var(--color-gold-dark);
   letter-spacing: 0.12em;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
 }
 
 .testimonial-card blockquote p {
   font-size: var(--text-sm);
   color: var(--text-dark-muted);
-  line-height: 1.8;
+  line-height: 1.75;
 }
 
 .testimonial-card figcaption {
   margin-top: var(--sp-sm);
   border-top: 1px solid var(--border-light);
-  padding-top: var(--sp-sm);
+  padding-top: 0.75rem;
 }
 .testimonial-card__name {
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 500;
   color: var(--text-dark);
 }
@@ -1133,13 +1161,19 @@ body.nav-open { overflow: hidden; }
   box-shadow: 0 18px 44px rgba(115, 104, 102, 0.16);
 }
 
-.team-card__media { aspect-ratio: 3 / 4; overflow: hidden; }
-.team-card__media img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform var(--t-slow);
+/* Avatar con iniziali — placeholder finché non arrivano le foto reali */
+.team-card__avatar {
+  aspect-ratio: 3 / 4;
+  background: linear-gradient(160deg, var(--bg-light-2) 0%, var(--bg-light) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: var(--color-gold-dark);
+  user-select: none;
 }
-.team-card:hover .team-card__media img { transform: scale(1.04); }
 
 .team-card h3 {
   margin: var(--sp-md) var(--sp-md) 0.25rem;

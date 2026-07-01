@@ -361,103 +361,51 @@
       </div>
     </section>
 
-    <!-- ============ TESTIMONIALS — scroll orizzontale ============ -->
+    <!-- ============ TESTIMONIALS — doppia riga marquee ============ -->
     <section class="testimonials" aria-labelledby="testimonials-title">
       <div class="testimonials__header container">
         <p class="eyebrow reveal">Clienti</p>
         <h2 class="section-title reveal" id="testimonials-title">Le loro <span class="text-gold">parole</span></h2>
       </div>
 
-      <div class="testimonials__track" role="list">
+      <!-- Riga 1 → scorre a sinistra -->
+      <div class="testimonials__row testimonials__row--1" aria-hidden="true">
+        <div class="testimonials__inner">
+          <!-- Set A -->
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Centro estetico molto professionale e competitivo. I punti di forza sono le soft skills del personale: cortesia, disponibilità ed educazione.</p></blockquote><figcaption><span class="testimonial-card__name">Eleonora</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Facebook</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>La professionalità, la discrezionalità… ci fa sentire completamente a nostro agio durante le sedute.</p></blockquote><figcaption><span class="testimonial-card__name">Ettore</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★☆</div></div><blockquote><p>Mi è piaciuto come trattano il cliente cercando di metterlo a proprio agio. È un modo di fare che funziona, anche se non tutti i centri estetici risulta trasparente.</p></blockquote><figcaption><span class="testimonial-card__name">Laura</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Entrando si percepisce un ambiente che ti accoglie con calore. Caldi i sorrisi delle operatrici, calde le luci. Professionalità e gentilezza le carte vincenti.</p></blockquote><figcaption><span class="testimonial-card__name">Angela</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Un centro estetico dalla professionalità indiscutibile e dalla squisita cortesia… per me è il top in assoluto. Lo raccomando assolutamente.</p></blockquote><figcaption><span class="testimonial-card__name">Viviana</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Ambiente curato e accogliente, personale preparato e sempre disponibile. Trattamenti di alta qualità con risultati evidenti fin dalla prima seduta.</p></blockquote><figcaption><span class="testimonial-card__name">Maria R.</span></figcaption></figure>
+          <!-- Set A duplicato per loop seamless -->
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Centro estetico molto professionale e competitivo. I punti di forza sono le soft skills del personale: cortesia, disponibilità ed educazione.</p></blockquote><figcaption><span class="testimonial-card__name">Eleonora</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Facebook</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>La professionalità, la discrezionalità… ci fa sentire completamente a nostro agio durante le sedute.</p></blockquote><figcaption><span class="testimonial-card__name">Ettore</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★☆</div></div><blockquote><p>Mi è piaciuto come trattano il cliente cercando di metterlo a proprio agio. È un modo di fare che funziona, anche se non tutti i centri estetici risulta trasparente.</p></blockquote><figcaption><span class="testimonial-card__name">Laura</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Entrando si percepisce un ambiente che ti accoglie con calore. Caldi i sorrisi delle operatrici, calde le luci. Professionalità e gentilezza le carte vincenti.</p></blockquote><figcaption><span class="testimonial-card__name">Angela</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Un centro estetico dalla professionalità indiscutibile e dalla squisita cortesia… per me è il top in assoluto. Lo raccomando assolutamente.</p></blockquote><figcaption><span class="testimonial-card__name">Viviana</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Ambiente curato e accogliente, personale preparato e sempre disponibile. Trattamenti di alta qualità con risultati evidenti fin dalla prima seduta.</p></blockquote><figcaption><span class="testimonial-card__name">Maria R.</span></figcaption></figure>
+        </div>
+      </div>
 
-        <figure class="testimonial-card" role="listitem">
-          <div class="testimonial-card__source">
-            <span class="testimonial-card__platform">Google</span>
-            <div class="testimonial-card__rating" role="img" aria-label="5 stelle">★★★★★</div>
-          </div>
-          <blockquote>
-            <p>Centro estetico molto professionale, e competitivo. I punti di forza sono le soft skills del personale: cortesia, disponibilità ed educazione.</p>
-          </blockquote>
-          <figcaption><span class="testimonial-card__name">Eleonora</span></figcaption>
-        </figure>
-
-        <figure class="testimonial-card" role="listitem">
-          <div class="testimonial-card__source">
-            <span class="testimonial-card__platform">Google</span>
-            <div class="testimonial-card__rating" role="img" aria-label="5 stelle">★★★★★</div>
-          </div>
-          <blockquote>
-            <p>Cristina e il suo staff fanno la differenza. Per qualsiasi miglioramento rivolgersi a Estetica Cristina, troverà la soluzione a qualsiasi nostro problema per essere Donne che fanno la differenza.</p>
-          </blockquote>
-          <figcaption><span class="testimonial-card__name">Sonia</span></figcaption>
-        </figure>
-
-        <figure class="testimonial-card" role="listitem">
-          <div class="testimonial-card__source">
-            <span class="testimonial-card__platform">Facebook</span>
-            <div class="testimonial-card__rating" role="img" aria-label="5 stelle">★★★★★</div>
-          </div>
-          <blockquote>
-            <p>La professionalità, la discrezionalità… ci fa sentire completamente a nostro agio durante le sedute.</p>
-          </blockquote>
-          <figcaption><span class="testimonial-card__name">Ettore</span></figcaption>
-        </figure>
-
-        <figure class="testimonial-card" role="listitem">
-          <div class="testimonial-card__source">
-            <span class="testimonial-card__platform">Facebook</span>
-            <div class="testimonial-card__rating" role="img" aria-label="5 stelle">★★★★★</div>
-          </div>
-          <blockquote>
-            <p>Ho fatto una pulizia viso con vitamina. Per me bellissimo trattamento e bellissimo posto. Non paragonabile ad altre estetiche.</p>
-          </blockquote>
-          <figcaption><span class="testimonial-card__name">Ilaria</span></figcaption>
-        </figure>
-
-        <figure class="testimonial-card" role="listitem">
-          <div class="testimonial-card__source">
-            <span class="testimonial-card__platform">Google</span>
-            <div class="testimonial-card__rating" role="img" aria-label="4 stelle">★★★★☆</div>
-          </div>
-          <blockquote>
-            <p>Mi è piaciuto come trattano il cliente cercando di metterlo a proprio agio. È un modo di fare che funziona. L'impressione è buona.</p>
-          </blockquote>
-          <figcaption><span class="testimonial-card__name">Laura</span></figcaption>
-        </figure>
-
-        <figure class="testimonial-card" role="listitem">
-          <div class="testimonial-card__source">
-            <span class="testimonial-card__platform">Google</span>
-            <div class="testimonial-card__rating" role="img" aria-label="5 stelle">★★★★★</div>
-          </div>
-          <blockquote>
-            <p>È la prima volta che sono stato da Cristina e devo dire che mi sono trovato bene: cordiale, professionale e brava nel suo lavoro, ottimo prezzo. Ci tornerò sicuramente.</p>
-          </blockquote>
-          <figcaption><span class="testimonial-card__name">Alessandro</span></figcaption>
-        </figure>
-
-        <figure class="testimonial-card" role="listitem">
-          <div class="testimonial-card__source">
-            <span class="testimonial-card__platform">Google</span>
-            <div class="testimonial-card__rating" role="img" aria-label="5 stelle">★★★★★</div>
-          </div>
-          <blockquote>
-            <p>Entrando si percepisce un ambiente che ti accoglie con calore. Caldi i sorrisi delle operatrici, calde le luci, caldo il profumo che ti avvolge. Professionalità e gentilezza le carte vincenti.</p>
-          </blockquote>
-          <figcaption><span class="testimonial-card__name">Angela</span></figcaption>
-        </figure>
-
-        <figure class="testimonial-card" role="listitem">
-          <div class="testimonial-card__source">
-            <span class="testimonial-card__platform">Google</span>
-            <div class="testimonial-card__rating" role="img" aria-label="5 stelle">★★★★★</div>
-          </div>
-          <blockquote>
-            <p>Un centro estetico dalla professionalità indiscutibile e dalla squisita cortesia… per me è il top in assoluto. Lo raccomando assolutamente.</p>
-          </blockquote>
-          <figcaption><span class="testimonial-card__name">Viviana</span></figcaption>
-        </figure>
-
+      <!-- Riga 2 → scorre a destra (direzione opposta) -->
+      <div class="testimonials__row testimonials__row--2" aria-hidden="true">
+        <div class="testimonials__inner">
+          <!-- Set B -->
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Cristina e il suo staff fanno la differenza. Per qualsiasi miglioramento rivolgersi a Estetica Cristina, troverà la soluzione a qualsiasi nostro problema.</p></blockquote><figcaption><span class="testimonial-card__name">Sonia</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Facebook</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Ho fatto una pulizia viso con vitamina. Per me bellissimo trattamento e bellissimo posto. Non paragonabile ad altre estetiche.</p></blockquote><figcaption><span class="testimonial-card__name">Ilaria</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>È la prima volta che sono stato da Cristina: cordiale, professionale e brava nel suo lavoro, ottimo prezzo. Ci tornerò sicuramente. Consiglio!</p></blockquote><figcaption><span class="testimonial-card__name">Alessandro</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Trattamenti personalizzati e altamente professionali. Si percepisce immediatamente la competenza e la passione di chi lavora qui.</p></blockquote><figcaption><span class="testimonial-card__name">Giovanna M.</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Ho provato diversi centri estetici, ma questo è il migliore in assoluto. Risultati visibili già dopo poche sedute. Personale squisito.</p></blockquote><figcaption><span class="testimonial-card__name">Federica T.</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Finalmente un centro che ascolta davvero le esigenze di ogni cliente. Il percorso personalizzato ha fatto la differenza nella mia routine di cura.</p></blockquote><figcaption><span class="testimonial-card__name">Roberta V.</span></figcaption></figure>
+          <!-- Set B duplicato -->
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Cristina e il suo staff fanno la differenza. Per qualsiasi miglioramento rivolgersi a Estetica Cristina, troverà la soluzione a qualsiasi nostro problema.</p></blockquote><figcaption><span class="testimonial-card__name">Sonia</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Facebook</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Ho fatto una pulizia viso con vitamina. Per me bellissimo trattamento e bellissimo posto. Non paragonabile ad altre estetiche.</p></blockquote><figcaption><span class="testimonial-card__name">Ilaria</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>È la prima volta che sono stato da Cristina: cordiale, professionale e brava nel suo lavoro, ottimo prezzo. Ci tornerò sicuramente. Consiglio!</p></blockquote><figcaption><span class="testimonial-card__name">Alessandro</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Trattamenti personalizzati e altamente professionali. Si percepisce immediatamente la competenza e la passione di chi lavora qui.</p></blockquote><figcaption><span class="testimonial-card__name">Giovanna M.</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Ho provato diversi centri estetici, ma questo è il migliore in assoluto. Risultati visibili già dopo poche sedute. Personale squisito.</p></blockquote><figcaption><span class="testimonial-card__name">Federica T.</span></figcaption></figure>
+          <figure class="testimonial-card"><div class="testimonial-card__source"><span class="testimonial-card__platform">Google</span><div class="testimonial-card__rating">★★★★★</div></div><blockquote><p>Finalmente un centro che ascolta davvero le esigenze di ogni cliente. Il percorso personalizzato ha fatto la differenza nella mia routine di cura.</p></blockquote><figcaption><span class="testimonial-card__name">Roberta V.</span></figcaption></figure>
+        </div>
       </div>
     </section>
 
@@ -520,39 +468,31 @@
 
         <div class="team__grid">
           <article class="team-card reveal">
-            <div class="team-card__media">
-              <img src="https://i.pravatar.cc/480?img=47" alt="Ritratto della Dr.ssa Alessandra Moretti" loading="lazy" />
-            </div>
-            <h3>Dr.ssa Alessandra Moretti</h3>
-            <p class="team-card__role">Dermatologa</p>
-            <p class="team-card__exp">18 anni di esperienza</p>
+            <div class="team-card__avatar">CB</div>
+            <h3>Cristina Barozzi</h3>
+            <p class="team-card__role">Titolare &amp; Fondatrice</p>
+            <p class="team-card__exp">Oltre 30 anni di esperienza</p>
           </article>
 
           <article class="team-card reveal">
-            <div class="team-card__media">
-              <img src="https://i.pravatar.cc/480?img=32" alt="Ritratto del Dr. Marco Ferretti" loading="lazy" />
-            </div>
-            <h3>Dr. Marco Ferretti</h3>
-            <p class="team-card__role">Chirurgo Estetico</p>
-            <p class="team-card__exp">22 anni di esperienza</p>
+            <div class="team-card__avatar">L</div>
+            <h3>Lara</h3>
+            <p class="team-card__role">Estetista Specializzata</p>
+            <p class="team-card__exp">Trattamenti viso e corpo</p>
           </article>
 
           <article class="team-card reveal">
-            <div class="team-card__media">
-              <img src="https://i.pravatar.cc/480?img=44" alt="Ritratto della Dr.ssa Claudia Ricci" loading="lazy" />
-            </div>
-            <h3>Dr.ssa Claudia Ricci</h3>
-            <p class="team-card__role">Nutrizionista</p>
-            <p class="team-card__exp">12 anni di esperienza</p>
+            <div class="team-card__avatar">P</div>
+            <h3>Dr. Pittoni</h3>
+            <p class="team-card__role">Medico Estetico</p>
+            <p class="team-card__exp">Chirurgo Estetico e Dermatologo</p>
           </article>
 
           <article class="team-card reveal">
-            <div class="team-card__media">
-              <img src="https://i.pravatar.cc/480?img=25" alt="Ritratto di Valentina Esposito" loading="lazy" />
-            </div>
-            <h3>Valentina Esposito</h3>
-            <p class="team-card__role">Dermopigmentista</p>
-            <p class="team-card__exp">10 anni di esperienza</p>
+            <div class="team-card__avatar">LG</div>
+            <h3>Laura Grimoldi</h3>
+            <p class="team-card__role">Estetista</p>
+            <p class="team-card__exp">Specializzata in epilazione laser</p>
           </article>
         </div>
       </div>

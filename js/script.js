@@ -31,7 +31,6 @@
       initHeroSlider();
       initReveals();
       initParallax();
-      initTestimonialsHScroll();
     } else {
       showAllImmediately();
       initHeroSliderFallback();
@@ -44,37 +43,61 @@
     initCountersFallback();
   }
 
-  /* Gold shimmer: gestito via CSS animation — nessun JS necessario */
-
   /* ══════════════════════════════════════════════
-   * TESTIMONIALS — scroll orizzontale con pin GSAP
+   * GOLD MOUSE TRACK
    *
-   * La sezione si "blocca" (pin) e le card scorrono
-   * orizzontalmente mentre l'utente scrolla verticalmente.
-   * Layout a scacchiera: card pari slittate in basso via CSS.
+   * Il punto luminoso del radial-gradient segue il mouse
+   * in tempo reale (via requestAnimationFrame + lerp morbido).
+   * Quando il mouse è fermo, torna a un lento drift automatico.
+   *
+   * Richiede che JS aggiunga .js-controlled su ogni .text-gold
+   * per disabilitare la CSS animation e cedere il controllo.
    * ══════════════════════════════════════════════ */
-  function initTestimonialsHScroll() {
-    const section = document.querySelector('.testimonials');
-    const track   = document.querySelector('.testimonials__track');
-    if (!section || !track) return;
+  (function initGoldMouseTrack() {
+    const goldEls = [...document.querySelectorAll('.text-gold')];
+    if (!goldEls.length) return;
 
-    const getScrollDist = () =>
-      track.scrollWidth - window.innerWidth + 80;
+    /* Disabilita animazione CSS — JS prende il controllo */
+    goldEls.forEach(el => el.classList.add('js-controlled'));
 
-    gsap.to(track, {
-      x: () => -getScrollDist(),
-      ease: 'none',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top top',
-        end: () => '+=' + getScrollDist(),
-        pin: true,
-        scrub: 1.2,
-        invalidateOnRefresh: true,
-        anticipatePin: 1,
-      },
-    });
-  }
+    if (prefersReducedMotion) {
+      goldEls.forEach(el => el.style.setProperty('--shimmer-x', '50%'));
+      return;
+    }
+
+    let targetX  = 50;
+    let currentX = 50;
+    let isIdle   = true;
+    let autoPos  = 50;
+    let autoDir  = 0.12;
+    let idleTimer;
+
+    document.addEventListener('mousemove', e => {
+      /* Posizione X del cursore come percentuale del viewport */
+      targetX = (e.clientX / window.innerWidth) * 100;
+      isIdle  = false;
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => { isIdle = true; }, 2800);
+    }, { passive: true });
+
+    function tick() {
+      if (isIdle) {
+        /* Drift automatico quando il mouse è fermo */
+        autoPos += autoDir;
+        if (autoPos >= 88 || autoPos <= 12) autoDir *= -1;
+        targetX = autoPos;
+      }
+      /* Lerp morbido: insegue il target con attrito */
+      currentX += (targetX - currentX) * 0.055;
+
+      const val = currentX.toFixed(2) + '%';
+      goldEls.forEach(el => el.style.setProperty('--shimmer-x', val));
+
+      requestAnimationFrame(tick);
+    }
+
+    tick();
+  })();
 
   /* ──────────────────────────────────────────────
    * Fallback: mostra tutto immediatamente
