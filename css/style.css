@@ -161,35 +161,26 @@ p { color: var(--text-dark-muted); font-weight: 400; }
 .section-title { font-size: var(--text-section); color: var(--text-dark); }
 
 /* ── Gradiente oro radiale + shimmer random via JS ── */
-/* @property: X e Y del cerchio radiale — animabili separatamente */
+/* @property per animare la posizione X del cerchio radiale */
 @property --shimmer-x {
   syntax: '<percentage>';
   inherits: false;
   initial-value: 50%;
 }
-@property --shimmer-y {
-  syntax: '<percentage>';
-  inherits: false;
-  initial-value: 50%;
-}
 
-/* Movimento 2D organico: il riflesso si muove in tutte le direzioni
-   descrivendo un percorso irregolare non ripetitivo visivamente. */
-@keyframes goldRadialFloat {
-  0%   { --shimmer-x: 18%; --shimmer-y: 60%; }
-  18%  { --shimmer-x: 78%; --shimmer-y: 22%; }
-  35%  { --shimmer-x: 55%; --shimmer-y: 80%; }
-  52%  { --shimmer-x: 88%; --shimmer-y: 45%; }
-  68%  { --shimmer-x: 25%; --shimmer-y: 20%; }
-  82%  { --shimmer-x: 65%; --shimmer-y: 72%; }
-  100% { --shimmer-x: 18%; --shimmer-y: 60%; }
+/* Sweep orizzontale: luce scorre da sinistra a destra e ritorna.
+   alternate = nessun salto al reset.
+   4s per direzione = ciclo 8s — visibile ma non rapido. */
+@keyframes goldRadialSweep {
+  from { --shimmer-x: 5%; }
+  to   { --shimmer-x: 95%; }
 }
 
 .text-gold,
 h1 em.text-gold,
 h2 .text-gold {
   background: radial-gradient(
-    circle at var(--shimmer-x) var(--shimmer-y),
+    circle at var(--shimmer-x) 50%,
     #fff8ec 0%,
     #f0d9a8 12%,
     #E0CDB0 28%,
@@ -213,8 +204,13 @@ h2 .text-gold {
     0 0  24px rgba(194, 168, 130, 0.32),
     0 0  60px rgba(194, 168, 130, 0.18),
     0 0 110px rgba(194, 168, 130, 0.09);
-  /* Float 2D: 2.2s ciclo, percorso irregolare in X e Y */
-  animation: goldRadialFloat 2.2s ease-in-out infinite;
+  /* Glow: text-shadow dorato caldo — effetto oro vero su sfondo scuro */
+  text-shadow:
+    0 0 18px rgba(194, 168, 130, 0.55),
+    0 0 45px rgba(194, 168, 130, 0.28),
+    0 0 85px rgba(194, 168, 130, 0.10);
+  /* Sweep orizzontale 4s per direzione (8s ciclo), alternate senza salti */
+  animation: goldRadialSweep 4s ease-in-out infinite alternate;
 }
 
 .eyebrow {
@@ -315,18 +311,7 @@ section { position: relative; }
   border-bottom: none;
 }
 
-/* Gradiente morbido sotto la navbar: nessuna linea netta,
-   solo una dissolvenza verso trasparente nel content */
-.site-header::after {
-  content: '';
-  position: absolute;
-  inset-inline: 0;
-  top: 100%;
-  height: 72px;
-  background: linear-gradient(to bottom, rgba(6,5,4,0.28), transparent);
-  pointer-events: none;
-  z-index: 0;
-}
+/* Nessun ::after — causava banding visibile sulla fronte */
 
 .site-header__inner {
   display: grid;

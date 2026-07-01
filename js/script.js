@@ -44,10 +44,10 @@
     initCountersFallback();
   }
 
-  /* Desincronizza il float 2D di ogni elemento gold (ciclo 2.2s) */
+  /* Desincronizza ogni elemento gold nel ciclo da 8s */
   if (!prefersReducedMotion) {
     document.querySelectorAll('.text-gold').forEach(el => {
-      el.style.animationDelay = (-Math.random() * 2.2).toFixed(2) + 's';
+      el.style.animationDelay = (-Math.random() * 8).toFixed(2) + 's';
     });
   }
 
