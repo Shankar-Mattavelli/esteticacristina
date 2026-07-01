@@ -43,62 +43,13 @@
     initCountersFallback();
   }
 
-  /* ══════════════════════════════════════════════
-   * GOLD MOUSE TRACK
-   *
-   * Il punto luminoso del radial-gradient segue il mouse
-   * in tempo reale (via requestAnimationFrame + lerp morbido).
-   * Quando il mouse è fermo, torna a un lento drift automatico.
-   *
-   * Richiede che JS aggiunga .js-controlled su ogni .text-gold
-   * per disabilitare la CSS animation e cedere il controllo.
-   * ══════════════════════════════════════════════ */
-  (function initGoldMouseTrack() {
-    const goldEls = [...document.querySelectorAll('.text-gold')];
-    if (!goldEls.length) return;
-
-    /* Disabilita animazione CSS — JS prende il controllo */
-    goldEls.forEach(el => el.classList.add('js-controlled'));
-
-    if (prefersReducedMotion) {
-      goldEls.forEach(el => el.style.setProperty('--shimmer-x', '50%'));
-      return;
-    }
-
-    let targetX  = 50;
-    let currentX = 50;
-    let isIdle   = true;
-    let autoPos  = 50;
-    let autoDir  = 0.12;
-    let idleTimer;
-
-    document.addEventListener('mousemove', e => {
-      /* Posizione X del cursore come percentuale del viewport */
-      targetX = (e.clientX / window.innerWidth) * 100;
-      isIdle  = false;
-      clearTimeout(idleTimer);
-      idleTimer = setTimeout(() => { isIdle = true; }, 2800);
-    }, { passive: true });
-
-    function tick() {
-      if (isIdle) {
-        /* Drift automatico quando il mouse è fermo */
-        autoPos += autoDir;
-        if (autoPos >= 88 || autoPos <= 12) autoDir *= -1;
-        targetX = autoPos;
-      }
-      /* Lerp reattivo: 0.18 = chiude 86% del gap in 10 frame (~167ms)
-         vs 0.055 che richiedeva ~300ms. Risposta quasi immediata. */
-      currentX += (targetX - currentX) * 0.18;
-
-      const val = currentX.toFixed(2) + '%';
-      goldEls.forEach(el => el.style.setProperty('--shimmer-x', val));
-
-      requestAnimationFrame(tick);
-    }
-
-    tick();
-  })();
+  /* Desincronizza gli elementi gold: ognuno parte in un punto
+     diverso del ciclo (delay negativo random sul ciclo da 6s). */
+  if (!prefersReducedMotion) {
+    document.querySelectorAll('.text-gold').forEach(el => {
+      el.style.animationDelay = (-Math.random() * 6).toFixed(2) + 's';
+    });
+  }
 
   /* ──────────────────────────────────────────────
    * Fallback: mostra tutto immediatamente

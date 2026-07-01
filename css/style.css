@@ -201,15 +201,10 @@ h2 .text-gold {
     0 0  24px rgba(194, 168, 130, 0.32),
     0 0  60px rgba(194, 168, 130, 0.18),
     0 0 110px rgba(194, 168, 130, 0.09);
-  /* Fallback: animazione CSS solo quando il JS non ha ancora preso il controllo.
-     Appena JS aggiunge .js-controlled, l'animazione si disabilita e
-     --shimmer-x viene pilotato dal mouse via requestAnimationFrame. */
-  animation: goldRadialSweep 5s ease-in-out infinite alternate;
-}
-.text-gold.js-controlled,
-h1 em.text-gold.js-controlled,
-h2 .text-gold.js-controlled {
-  animation: none;
+  /* Automatico: il punto luminoso oscilla avanti/indietro.
+     3s per direzione = ciclo totale ~6s. Il JS assegna un
+     animation-delay negativo random per desincronizzare gli elementi. */
+  animation: goldRadialSweep 3s ease-in-out infinite alternate;
 }
 
 .eyebrow {
