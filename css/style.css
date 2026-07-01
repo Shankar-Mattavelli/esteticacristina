@@ -577,21 +577,20 @@ body.nav-open { overflow: hidden; }
   50%       { opacity: 0.3; transform: scaleY(0.5); }
 }
 
-/* ─── 9. Stats ───────────────────────────────────────────────────
-   Sfondo nero + texture in overlay con fade trasparente in cima:
-   - Layer 0: #000000 solido (sempre visibile sotto)
-   - Layer 1 (::before): immagine texture con mask dal trasparente
-     al pieno, così la parte superiore rivela solo il nero e
-     la texture emerge gradualmente verso il basso.
+/* ─── Blocco cinematic: wrapper unico per stats + mission ────────
+   Un solo pseudo-elemento ::before gestisce la texture per
+   entrambe le sezioni → nessun bordo interno visibile.
+   - Layer 0: #000000 (sempre visibile sotto)
+   - Layer 1 (::before): texture con mask che fade da transparent
+     in cima → piena visibilità dal 25% in poi
    ─────────────────────────────────────────────────────────────── */
-.stats {
-  margin-top: -2px;
+.cinematic-block {
   background-color: #000000;
-  padding-block: var(--sp-xxl);
   position: relative;
+  margin-top: -2px;
 }
 
-.stats::before {
+.cinematic-block::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -599,23 +598,31 @@ body.nav-open { overflow: hidden; }
   background: url('../assets/images/varie/sfondo-texture.png') center / cover no-repeat;
   -webkit-mask-image: linear-gradient(
     to bottom,
-    transparent 0%,
-    rgba(0,0,0,0.3) 18%,
-    rgba(0,0,0,0.7) 38%,
-    black 58%
+    transparent  0%,
+    rgba(0,0,0,0.25) 10%,
+    rgba(0,0,0,0.65) 22%,
+    black        35%
   );
   mask-image: linear-gradient(
     to bottom,
-    transparent 0%,
-    rgba(0,0,0,0.3) 18%,
-    rgba(0,0,0,0.7) 38%,
-    black 58%
+    transparent  0%,
+    rgba(0,0,0,0.25) 10%,
+    rgba(0,0,0,0.65) 22%,
+    black        35%
   );
-  opacity: 0.60;
+  opacity: 0.62;
 }
 
-/* Contenuto stats sopra la texture */
-.stats .container { position: relative; z-index: 1; }
+/* ─── 9. Stats ── */
+.stats {
+  background-color: transparent; /* eredita dal cinematic-block */
+  padding-block: var(--sp-xxl);
+  position: relative;
+}
+
+/* Contenuto sopra la texture */
+.stats .container,
+.mission .container { position: relative; z-index: 1; }
 
 .stats .eyebrow {
   text-align: center;
@@ -649,41 +656,12 @@ body.nav-open { overflow: hidden; }
   color: var(--text-light-muted);
 }
 
-/* ─── 10. Mission — nero + stessa texture di stats ─────────── */
+/* ─── 10. Mission ── */
 .mission {
-  background-color: #000000;
-  position: relative;
-}
-
-.mission::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: url('../assets/images/varie/sfondo-texture.png') center / cover no-repeat;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(0,0,0,0.5) 22%,
-    black 50%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(0,0,0,0.5) 22%,
-    black 50%
-  );
-  opacity: 0.55;
-}
-
-/* Contenuto mission sopra la texture */
-.mission .container { position: relative; z-index: 1; }
-
-/* (background-color ripetuto per leggibilità del codice) */
-.mission {
+  background-color: transparent; /* eredita #000 dal cinematic-block */
   color: var(--text-light);
   padding-block: var(--sp-xxl);
-  border-top: 1px solid rgba(248, 245, 241, 0.06);
+  border-top: none; /* rimosso: farebbe vedere il bordo dentro il blocco */
 }
 
 .mission .eyebrow { color: var(--color-gold-light); }
