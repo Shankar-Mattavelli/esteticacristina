@@ -61,8 +61,7 @@ address { font-style: normal; }
    * SISTEMA TEXTURE — la stessa parete con illuminazioni diverse.
    * Stessa materia, diversa luce: sono il materiale del sito.
    */
-  --texture-dark:  url('../assets/images/varie/sfondo-texture.png');   /* buio — Capitolo 4 (APPROVATO) */
-  --texture-hero-under: url('../assets/images/varie/sfondo-texture-hero.png'); /* buio — blocco sotto la hero */
+  --texture-hero-under: url('../assets/images/varie/sfondo-texture-hero.png'); /* buio — blocchi cinematic (sotto hero + CTA/footer) */
   --texture-beige: url('../assets/images/varie/texture-beige.png');    /* pelle/calore — Capitolo 2 */
   --texture-grigia: url('../assets/images/varie/texture-grigia.png');  /* professionalità — Capitolo 3 */
   --texture-taupe: url('../assets/images/varie/texture-taupe.png');    /* transizione scura — slot disponibile */
@@ -653,28 +652,9 @@ body.nav-open { overflow: hidden; }
 .mission .container { position: relative; z-index: 1; }
 
 /* ── Blocco cinematic inferiore: CTA + Footer ───────────────────
-   Stessa logica del blocco superiore ma mask invertita:
-   texture visibile in alto, si dissolve verso il fondo pagina.
+   Stessa texture e stesso fade del blocco superiore (fade in cima,
+   piena visibilità sotto) → nessuna regola propria da sovrascrivere.
    ─────────────────────────────────────────────────────────────── */
-.cinematic-block--bottom::before {
-  background-image: var(--texture-dark);
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    black        0%,
-    black        55%,
-    rgba(0,0,0,0.65) 72%,
-    rgba(0,0,0,0.25) 86%,
-    transparent  100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    black        0%,
-    black        55%,
-    rgba(0,0,0,0.65) 72%,
-    rgba(0,0,0,0.25) 86%,
-    transparent  100%
-  );
-}
 
 .cta {
   background-color: transparent;
