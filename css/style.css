@@ -619,6 +619,42 @@ body.nav-open { overflow: hidden; }
 .stats .container,
 .mission .container { position: relative; z-index: 1; }
 
+/* ── Blocco cinematic inferiore: CTA + Footer ───────────────────
+   Stessa logica del blocco superiore ma mask invertita:
+   texture visibile in alto, si dissolve verso il fondo pagina.
+   ─────────────────────────────────────────────────────────────── */
+.cinematic-block--bottom::before {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black        0%,
+    black        55%,
+    rgba(0,0,0,0.65) 72%,
+    rgba(0,0,0,0.25) 86%,
+    transparent  100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    black        0%,
+    black        55%,
+    rgba(0,0,0,0.65) 72%,
+    rgba(0,0,0,0.25) 86%,
+    transparent  100%
+  );
+}
+
+.cta {
+  background-color: transparent;
+  position: relative;
+}
+.site-footer {
+  background-color: transparent;
+  position: relative;
+}
+
+/* Contenuto CTA e footer sopra la texture */
+.cta .container,
+.site-footer .container { position: relative; z-index: 1; }
+
 .stats .eyebrow {
   text-align: center;
   color: var(--color-gold-light);
@@ -1343,9 +1379,9 @@ body.nav-open { overflow: hidden; }
 
 /* ─── 21. CTA ───────────────────────────────────────────────── */
 .cta {
-  background-color: var(--bg-dark-2);
+  background-color: transparent; /* cinematic-block--bottom */
   padding-block: var(--sp-xxl);
-  border-top: 1px solid var(--border-dark);
+  border-top: none;
   color: var(--text-light);
 }
 .cta .eyebrow { color: var(--color-gold-light); }
@@ -1375,11 +1411,11 @@ body.nav-open { overflow: hidden; }
 
 /* ─── 22. Footer ────────────────────────────────────────────── */
 .site-footer {
-  background-color: var(--bg-dark-2);
+  background-color: transparent; /* cinematic-block--bottom */
   color: var(--text-light-muted);
   padding-top: var(--sp-xxl);
   padding-bottom: var(--sp-lg);
-  border-top: 1px solid var(--border-dark);
+  border-top: none;
 }
 
 .site-footer__grid {
