@@ -453,12 +453,16 @@ body.nav-open { overflow: hidden; }
 
 .hero__media {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: -12px;
+  width: calc(100% + 24px);
   /* Corregge il centro ottico: il viso nel ritratto è ~12px a sinistra
-     del centro geometrico dell'immagine. Shift del container (non img)
-     così non interferisce con GSAP che anima solo l'img interna. */
+     del centro geometrico dell'immagine. Il box è allargato di 12px per
+     lato e poi shiftato, così lo shift non scopre lo sfondo sul bordo
+     sinistro (prima capitava con inset:0 + translateX). Shift del
+     container (non img) così non interferisce con GSAP che anima solo
+     l'img interna. */
   transform: translateX(12px);
 }
 
