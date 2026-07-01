@@ -87,8 +87,9 @@
         if (autoPos >= 88 || autoPos <= 12) autoDir *= -1;
         targetX = autoPos;
       }
-      /* Lerp morbido: insegue il target con attrito */
-      currentX += (targetX - currentX) * 0.055;
+      /* Lerp reattivo: 0.18 = chiude 86% del gap in 10 frame (~167ms)
+         vs 0.055 che richiedeva ~300ms. Risposta quasi immediata. */
+      currentX += (targetX - currentX) * 0.18;
 
       const val = currentX.toFixed(2) + '%';
       goldEls.forEach(el => el.style.setProperty('--shimmer-x', val));
