@@ -436,32 +436,47 @@ body.nav-open { overflow: hidden; }
   will-change: transform;
 }
 
-/* Overlay: vignette radiale (centro aperto → viso visibile) +
-   fade verticale ampio che sfuma dolcemente in #767676. */
+/* Overlay: SOLO vignette radiale per leggibilità del viso.
+   Nessun fade grigio — la transizione è gestita da .section-bridge. */
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(
-      ellipse 70% 60% at 50% 42%,
-      rgba(26,24,22,0.00) 0%,
-      rgba(26,24,22,0.08) 35%,
-      rgba(26,24,22,0.52) 72%,
-      rgba(26,24,22,0.72) 100%
-    ),
-    /* Fade inizia al 28%: il grigio #767676 emerge già nella zona centrale
-       e riempie completamente il basso — nessuna zona scura non sfumata */
-    linear-gradient(
-      180deg,
-      rgba(118,118,118,0.00) 0%,
-      rgba(118,118,118,0.00) 28%,
-      rgba(118,118,118,0.18) 44%,
-      rgba(118,118,118,0.45) 58%,
-      rgba(118,118,118,0.72) 74%,
-      rgba(118,118,118,0.90) 88%,
-      #767676 100%
-    );
+  background: radial-gradient(
+    ellipse 72% 62% at 50% 42%,
+    rgba(20,18,16,0.00) 0%,
+    rgba(20,18,16,0.06) 32%,
+    rgba(20,18,16,0.48) 70%,
+    rgba(20,18,16,0.70) 100%
+  );
   z-index: 1;
+}
+
+/* ─── Ponte di transizione hero → stats ─────────────────────────
+   Elemento separato: non tocca l'immagine né l'overlay della Hero.
+   Parte dal nero della Hero e sfuma MOLTO lentamente verso #767676.
+   L'utente non percepisce il punto esatto di cambio colore.
+   ─────────────────────────────────────────────────────────────── */
+.section-bridge {
+  display: block;
+  height: 260px;
+  background: linear-gradient(
+    to bottom,
+    #0a0908 0%,      /* nero della hero — continuazione dello sfondo */
+    #0a0908 18%,     /* ~47px di nero puro prima che inizi qualsiasi cambiamento */
+    #1a1816 30%,     /* quasi nero */
+    #2e2b28 44%,     /* grigio scurissimo */
+    #464342 56%,     /* grigio molto scuro */
+    #5c5a59 67%,     /* grigio medio-scuro */
+    #6b6969 77%,     /* grigio quasi obiettivo */
+    #727070 86%,
+    #767676 94%,     /* colore sezione stats */
+    #767676 100%
+  );
+  pointer-events: none;
+}
+
+@media (max-width: 720px) {
+  .section-bridge { height: 160px; }
 }
 
 .hero__content {
