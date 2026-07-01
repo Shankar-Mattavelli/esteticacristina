@@ -436,29 +436,9 @@ body.nav-open { overflow: hidden; }
   will-change: transform;
 }
 
-/* Overlay hero: vignette radiale + fondo garantito #000000.
-   Il radial usa rgba caldo che sul nero darebbe #0e0c0b ≠ #000.
-   Il secondo layer porta gli ultimi pixel a #000000 esatto
-   così la sezione stats (che parte da #000000) matcha perfettamente. */
+/* Overlay hero: rimosso completamente — nessun effetto sull'immagine */
 .hero__overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(
-      ellipse 72% 62% at 50% 42%,
-      rgba(20,18,16,0.00) 0%,
-      rgba(20,18,16,0.06) 32%,
-      rgba(20,18,16,0.48) 70%,
-      rgba(20,18,16,0.68) 100%
-    ),
-    linear-gradient(
-      to bottom,
-      transparent 0%,
-      transparent 92%,
-      rgba(0,0,0,0.75) 96%,
-      #000000 100%
-    );
-  z-index: 1;
+  display: none;
 }
 
 
@@ -579,19 +559,10 @@ body.nav-open { overflow: hidden; }
   50%       { opacity: 0.3; transform: scaleY(0.5); }
 }
 
-/* ─── 9. Stats ──────────────────────────────────────────────────
-   La nuova hero image ha il fondo #000000 puro.
-   Il gradiente parte da #000000 e arriva a #767676 spalmato
-   su TUTTA la sezione — transizione lunghissima e impercettibile.
-   margin-top: -2px chiude l'eventuale gap sub-pixel.
-   ─────────────────────────────────────────────────────────────── */
+/* ─── 9. Stats — tutto nero per test, vediamo se la linea sparisce */
 .stats {
   margin-top: -2px;
-  background: linear-gradient(
-    to bottom,
-    #000000 0%,
-    #767676 100%
-  );
+  background: #000000;
   padding-block: var(--sp-xxl);
 }
 
