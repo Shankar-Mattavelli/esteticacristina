@@ -569,28 +569,19 @@ body.nav-open { overflow: hidden; }
   50%       { opacity: 0.3; transform: scaleY(0.5); }
 }
 
-/* ─── Immagine di transizione custom hero → stats ──────────────
-   L'img va da: colore fondo hero (in basso) → #767676 (in alto).
-   Salva il file in assets/images/varie/hero-transition.png
-   Larghezza consigliata: 1920px, altezza: 300-400px.
+/* ─── 9. Stats ──────────────────────────────────────────────────
+   La nuova hero image ha il fondo #000000 puro.
+   Il gradiente parte da #000000 e arriva a #767676 spalmato
+   su TUTTA la sezione — transizione lunghissima e impercettibile.
+   margin-top: -2px chiude l'eventuale gap sub-pixel.
    ─────────────────────────────────────────────────────────────── */
-.hero-transition {
-  display: block;
-  line-height: 0;
-  margin-top: -2px; /* chiude eventuale gap sub-pixel con la hero */
-}
-.hero-transition img {
-  width: 100%;
-  display: block;
-  /* Se l'img non è ancora caricata, nascondi l'area */
-  min-height: 0;
-}
-/* Fallback mentre l'img non c'è: sfondo trasparente */
-.hero-transition:not(:has(img[src])) { display: none; }
-
-/* ─── 9. Stats — piatto #767676, transizione affidata all'img custom ── */
 .stats {
-  background-color: #767676;
+  margin-top: -2px;
+  background: linear-gradient(
+    to bottom,
+    #000000 0%,
+    #767676 100%
+  );
   padding-block: var(--sp-xxl);
 }
 
