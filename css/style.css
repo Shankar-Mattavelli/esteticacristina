@@ -577,12 +577,45 @@ body.nav-open { overflow: hidden; }
   50%       { opacity: 0.3; transform: scaleY(0.5); }
 }
 
-/* ─── 9. Stats — tutto nero per test, vediamo se la linea sparisce */
+/* ─── 9. Stats ───────────────────────────────────────────────────
+   Sfondo nero + texture in overlay con fade trasparente in cima:
+   - Layer 0: #000000 solido (sempre visibile sotto)
+   - Layer 1 (::before): immagine texture con mask dal trasparente
+     al pieno, così la parte superiore rivela solo il nero e
+     la texture emerge gradualmente verso il basso.
+   ─────────────────────────────────────────────────────────────── */
 .stats {
   margin-top: -2px;
-  background: #000000;
+  background-color: #000000;
   padding-block: var(--sp-xxl);
+  position: relative;
 }
+
+.stats::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url('../assets/images/varie/sfondo-texture.png') center / cover no-repeat;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,0.3) 18%,
+    rgba(0,0,0,0.7) 38%,
+    black 58%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,0.3) 18%,
+    rgba(0,0,0,0.7) 38%,
+    black 58%
+  );
+  opacity: 0.60;
+}
+
+/* Contenuto stats sopra la texture */
+.stats .container { position: relative; z-index: 1; }
 
 .stats .eyebrow {
   text-align: center;
@@ -616,9 +649,38 @@ body.nav-open { overflow: hidden; }
   color: var(--text-light-muted);
 }
 
-/* ─── 10. Mission — nero come hero e stats ──────────────────── */
+/* ─── 10. Mission — nero + stessa texture di stats ─────────── */
 .mission {
   background-color: #000000;
+  position: relative;
+}
+
+.mission::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url('../assets/images/varie/sfondo-texture.png') center / cover no-repeat;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,0.5) 22%,
+    black 50%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,0.5) 22%,
+    black 50%
+  );
+  opacity: 0.55;
+}
+
+/* Contenuto mission sopra la texture */
+.mission .container { position: relative; z-index: 1; }
+
+/* (background-color ripetuto per leggibilità del codice) */
+.mission {
   color: var(--text-light);
   padding-block: var(--sp-xxl);
   border-top: 1px solid rgba(248, 245, 241, 0.06);
