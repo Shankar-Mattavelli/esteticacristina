@@ -188,6 +188,13 @@ h2 .text-gold {
   color: #C2A882; /* fallback no background-clip */
   font-style: italic;
   font-weight: 400;
+  /*
+   * Fix clipping: il corsivo (italic) sporge a destra oltre il bounding box.
+   * Con background-clip:text il background si ferma al bordo del box →
+   * le ultime lettere appaiono tagliate. Il padding-right estende il background
+   * abbastanza da coprire l'overhang dell'italic senza alterare il layout.
+   */
+  padding-right: 0.18em;
   /* Nessuna animazione di default: il JS aggiunge .is-shimmering a random */
 }
 
@@ -463,7 +470,6 @@ body.nav-open { overflow: hidden; }
   font-weight: 300;
   font-style: italic;
   letter-spacing: 0.55em;
-  text-indent: 0.55em; /* compensa l'extra-spazio dopo l'ultima lettera */
   color: rgba(224, 205, 176, 0.58);
   font-size: 0.72rem;
   margin-bottom: var(--sp-md);
