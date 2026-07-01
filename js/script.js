@@ -1,13 +1,32 @@
 /**
  * Estetica Cristina — script.js
- * GSAP + ScrollTrigger per animazioni cinematografiche.
- * Hero entrance · scroll reveals · parallax · count-up ·
+ * GSAP + ScrollTrigger · Hero slider · Gold shimmer
  * accordion · nav mobile · active nav · back-to-top.
  */
 (() => {
   'use strict';
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ─────────────────────────────────────────────
+   * Hero slider — 3 frasi in crossfade ogni ~5s
+   * Indipendente da GSAP, gira sempre
+   * ───────────────────────────────────────────── */
+  (function initHeroSlider() {
+    const slides = document.querySelectorAll('.hero__slide');
+    if (slides.length <= 1) return;
+
+    let current = 0;
+    const INTERVAL = 5000; // ms tra uno slide e l'altro
+
+    setInterval(() => {
+      slides[current].classList.remove('is-active');
+      slides[current].setAttribute('aria-hidden', 'true');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('is-active');
+      slides[current].setAttribute('aria-hidden', 'false');
+    }, INTERVAL);
+  })();
 
   /* ─────────────────────────────────────────────
    * GSAP init
@@ -29,24 +48,32 @@
 
   function showAllImmediately() {
     document.querySelectorAll(
-      '.reveal, .hero__eyebrow, .hero__line, .hero__divider, .hero__subtitle, .hero__btn, .hero__scroll'
+      '.reveal, .hero__divider, .hero__subtitle, .hero__scroll'
     ).forEach(el => {
       el.style.opacity = '1';
       el.style.transform = 'none';
     });
+    /* Tutti gli slide visibili subito */
+    document.querySelectorAll('.hero__slide').forEach(s => {
+      s.style.opacity = s.classList.contains('is-active') ? '1' : '0';
+    });
   }
 
   /* ─────────────────────────────────────────────
-   * Hero: cinematic entrance + slow zoom loop
+   * Hero: entrance animation scoped al primo slide
    * ───────────────────────────────────────────── */
   function initHero() {
     const heroImg    = document.querySelector('.hero__media img');
-    const eyebrow    = document.querySelector('.hero__eyebrow');
-    const lines      = document.querySelectorAll('.hero__line');
+    const firstSlide = document.querySelector('.hero__slide.is-active');
+    const eyebrow    = firstSlide?.querySelector('.hero__eyebrow');
+    const lines      = firstSlide ? [...firstSlide.querySelectorAll('.hero__line')] : [];
     const divider    = document.querySelector('.hero__divider');
     const subtitle   = document.querySelector('.hero__subtitle');
-    const heroBtn    = document.querySelector('.hero__btn');
     const heroScroll = document.querySelector('.hero__scroll');
+
+    /* Stato iniziale esplicito via GSAP (sovrascrive CSS per il primo slide) */
+    if (eyebrow) gsap.set(eyebrow, { opacity: 0, y: 18 });
+    lines.forEach(l => gsap.set(l, { opacity: 0, y: 44 }));
 
     if (heroImg) {
       gsap.fromTo(heroImg,
@@ -67,19 +94,11 @@
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
     if (eyebrow) {
-      tl.fromTo(eyebrow,
-        { opacity: 0, y: 18 },
-        { opacity: 1, y: 0, duration: 0.9 },
-        0.5
-      );
+      tl.to(eyebrow, { opacity: 1, y: 0, duration: 0.9 }, 0.5);
     }
 
     lines.forEach((line, i) => {
-      tl.fromTo(line,
-        { opacity: 0, y: 44 },
-        { opacity: 1, y: 0, duration: 1.1 },
-        0.78 + i * 0.22
-      );
+      tl.to(line, { opacity: 1, y: 0, duration: 1.1 }, 0.78 + i * 0.22);
     });
 
     if (divider) {
@@ -98,19 +117,11 @@
       );
     }
 
-    if (heroBtn) {
-      tl.fromTo(heroBtn,
-        { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.75 },
-        1.62
-      );
-    }
-
     if (heroScroll) {
       tl.fromTo(heroScroll,
         { opacity: 0 },
         { opacity: 1, duration: 0.6 },
-        1.92
+        1.72
       );
     }
   }
