@@ -204,11 +204,11 @@ h2 .text-gold {
     0 0  24px rgba(194, 168, 130, 0.32),
     0 0  60px rgba(194, 168, 130, 0.18),
     0 0 110px rgba(194, 168, 130, 0.09);
-  /* Glow: text-shadow dorato caldo — effetto oro vero su sfondo scuro */
+  /* Glow ridotto: luminescenza presente ma non invadente */
   text-shadow:
-    0 0 18px rgba(194, 168, 130, 0.55),
-    0 0 45px rgba(194, 168, 130, 0.28),
-    0 0 85px rgba(194, 168, 130, 0.10);
+    0 0 18px rgba(194, 168, 130, 0.35),
+    0 0 45px rgba(194, 168, 130, 0.16),
+    0 0 85px rgba(194, 168, 130, 0.06);
   /* Sweep orizzontale 4s per direzione (8s ciclo), alternate senza salti */
   animation: goldRadialSweep 4s ease-in-out infinite alternate;
 }
@@ -1575,6 +1575,26 @@ body.nav-open { overflow: hidden; }
   :root { --pad-x: 1.2rem; }
   .cta__actions { flex-direction: column; align-items: stretch; }
   .back-to-top  { width: 40px; height: 40px; inset-inline-end: 1rem; inset-block-end: 1rem; }
+}
+
+/* ───────────────────────────────────────────────────────────────
+   TYPEWRITER — cursore lampeggiante durante la digitazione
+   ─────────────────────────────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+[data-typewriter].is-typing::after {
+  content: '|';
+  color: var(--color-gold);
+  animation: blink 0.72s step-end infinite;
+  margin-left: 1px;
+}
+
+/* Autore nascosto: JS lo fa apparire dopo la digitazione */
+[data-typewriter-attr] {
+  transition: opacity 1.4s ease 0.4s;
 }
 
 /* ───────────────────────────────────────────────────────────────

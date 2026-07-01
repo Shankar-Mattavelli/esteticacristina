@@ -43,6 +43,89 @@
     initCountersFallback();
   }
 
+  /* ══════════════════════════════════════════════
+   * TYPEWRITER — digitazione carattere per carattere
+   * Attivato da IntersectionObserver (threshold 0.5).
+   * Dopo la digitazione, [data-typewriter-attr] fades in.
+   * ══════════════════════════════════════════════ */
+  (function initTypewriter() {
+    const targets = document.querySelectorAll('[data-typewriter]');
+    if (!targets.length) return;
+
+    /* Estrae testo preservando i <br> come \n */
+    function extractText(el) {
+      let out = '';
+      el.childNodes.forEach(node => {
+        if (node.nodeType === Node.TEXT_NODE) out += node.textContent;
+        else if (node.nodeName === 'BR') out += '\n';
+        else out += node.textContent;
+      });
+      return out.trim();
+    }
+
+    /* Digita un elemento, poi mostra l'autore */
+    function typeEl(el) {
+      const text = el.dataset.twText;
+      const attr = el.nextElementSibling?.hasAttribute('data-typewriter-attr')
+        ? el.nextElementSibling : null;
+      let i = 0;
+      const SPEED = prefersReducedMotion ? 0 : 27;
+
+      el.innerHTML = '';
+      el.classList.add('is-typing');
+
+      function tick() {
+        if (i >= text.length) {
+          el.classList.remove('is-typing');
+          el.classList.add('typed');
+          if (attr) attr.style.opacity = '1';
+          return;
+        }
+        const ch = text[i++];
+        if (ch === '\n') {
+          el.appendChild(document.createElement('br'));
+        } else {
+          const last = el.lastChild;
+          if (last?.nodeType === Node.TEXT_NODE) last.textContent += ch;
+          else el.appendChild(document.createTextNode(ch));
+        }
+        setTimeout(tick, SPEED);
+      }
+
+      tick();
+    }
+
+    /* Prepara gli elementi e li osserva */
+    targets.forEach(el => {
+      el.dataset.twText = extractText(el);
+      el.innerHTML = '';
+
+      const attr = el.nextElementSibling?.hasAttribute('data-typewriter-attr')
+        ? el.nextElementSibling : null;
+      if (attr) attr.style.opacity = '0';
+    });
+
+    if (prefersReducedMotion) {
+      targets.forEach(el => {
+        el.textContent = el.dataset.twText;
+        const attr = el.nextElementSibling?.hasAttribute('data-typewriter-attr')
+          ? el.nextElementSibling : null;
+        if (attr) attr.style.opacity = '1';
+      });
+      return;
+    }
+
+    const io = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(entry.target);
+        typeEl(entry.target);
+      });
+    }, { threshold: 0.55 });
+
+    targets.forEach(el => io.observe(el));
+  })();
+
   /* Desincronizza ogni elemento gold nel ciclo da 8s */
   if (!prefersReducedMotion) {
     document.querySelectorAll('.text-gold').forEach(el => {
