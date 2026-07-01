@@ -789,29 +789,95 @@ body.nav-open { overflow: hidden; }
   color: var(--text-light-muted);
 }
 
-/* ─── 11. Why Us ─────────────────────────────────────────────
-   CAPITOLO 2 — primo ingresso nel beige.
-   La texture inizia a comparire qui come la parete del centro
-   illuminata dalla luce calda dell'ingresso.
-   ─────────────────────────────────────────────────────────── */
-.why-us {
-  background-color: var(--bg-light);
+/* ═══════════════════════════════════════════════════════════════
+   AMBIENTI — grandi superfici materiche continue
+   ═══════════════════════════════════════════════════════════════
+
+   Tecnica anti-tiling: due layer della stessa texture a scale
+   leggermente diverse e posizioni opposte (top/bottom).
+   L'overlap centrale crea variazione naturale senza pattern visibili.
+   I gradienti radiali simulano illuminazione ambientale non uniforme.
+   Opacity molto bassa: il materiale si percepisce, non si vede.
+   isolation:isolate crea stacking context → z-index: -1 funziona.
+   ─────────────────────────────────────────────────────────────── */
+
+/* ── AMBIENTE BEIGE (Capitolo 2) ─────────────────────────────── */
+.env-beige {
   position: relative;
+  background-color: var(--bg-light); /* #C3B8A7 */
+  isolation: isolate;
 }
 
-/* Texture beige: parete vista dall'alto-sinistra */
-.why-us__content::before {
+.env-beige::before {
   content: '';
   position: absolute;
   inset: 0;
-  z-index: 0;
-  background: var(--texture-beige) 20% 15% / cover no-repeat;
-  opacity: 0.38;
+  z-index: -1;
+  background-image:
+    /* Illuminazione calda da in alto a sinistra */
+    radial-gradient(ellipse 80% 35% at 22% 18%, rgba(255,252,245,0.18) 0%, transparent 65%),
+    /* Ombra morbida in basso a destra */
+    radial-gradient(ellipse 60% 30% at 78% 82%, rgba(195,180,160,0.10) 0%, transparent 60%),
+    /* Texture layer A — grande, dalla cima */
+    var(--texture-beige),
+    /* Texture layer B — leggermente diversa, dal fondo */
+    var(--texture-beige);
+  background-size:
+    100% 100%,
+    100% 100%,
+    max(2800px, 200%) auto,
+    max(2400px, 180%) auto;
+  background-position:
+    0 0,
+    0 0,
+    center top,
+    center bottom;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  opacity: 0.22; /* percepita, non protagonista */
   pointer-events: none;
 }
 
-/* Contenuto why-us sopra la texture */
-.why-us__content > * { position: relative; z-index: 1; }
+/* ── AMBIENTE GRIGIO (Capitolo 3) ────────────────────────────── */
+.env-grigia {
+  position: relative;
+  background-color: var(--bg-light-2); /* #D9D9D9 */
+  isolation: isolate;
+}
+
+.env-grigia::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    /* Luce neutra da in alto a destra */
+    radial-gradient(ellipse 70% 30% at 78% 15%, rgba(255,255,255,0.14) 0%, transparent 60%),
+    /* Profondità lieve in basso a sinistra */
+    radial-gradient(ellipse 55% 28% at 20% 85%, rgba(200,200,200,0.08) 0%, transparent 55%),
+    /* Texture layer A */
+    var(--texture-grigia),
+    /* Texture layer B — scala e posizione diverse */
+    var(--texture-grigia);
+  background-size:
+    100% 100%,
+    100% 100%,
+    max(2800px, 200%) auto,
+    max(2400px, 180%) auto;
+  background-position:
+    0 0,
+    0 0,
+    center top,
+    center bottom;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  opacity: 0.24;
+  pointer-events: none;
+}
+
+/* ─── 11. Why Us ── */
+.why-us {
+  background-color: transparent; /* ambiente beige dal wrapper */
+  position: relative;
+}
 
 .why-us__media {
   position: relative;
@@ -828,7 +894,7 @@ body.nav-open { overflow: hidden; }
     180deg,
     rgba(26, 24, 22, 0.70) 0%,
     rgba(26, 24, 22, 0.18) 55%,
-    #C3B8A7 100%
+    transparent 100% /* mostra l'ambiente beige del wrapper */
   );
 }
 
@@ -877,27 +943,11 @@ body.nav-open { overflow: hidden; }
 }
 .why-card p { font-size: var(--text-sm); color: var(--text-dark-muted); }
 
-/* ─── 12. Tecnologie ─────────────────────────────────────────
-   CAPITOLO 2 — la parete vista da un'angolazione diversa.
-   Stesso materiale, diversa porzione → continuità visiva.
-   ─────────────────────────────────────────────────────────── */
+/* ─── 12. Tecnologie ── */
 .tecnologie {
-  background-color: var(--bg-light);
+  background-color: transparent;
   padding-block: var(--sp-xxl);
-  position: relative;
 }
-
-.tecnologie::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: var(--texture-beige) 70% 45% / cover no-repeat;
-  opacity: 0.35;
-  pointer-events: none;
-}
-
-.tecnologie .container { position: relative; z-index: 1; }
 
 .tecnologie .eyebrow { color: var(--color-tortora); }
 .tecnologie .section-title { color: var(--text-dark); }
@@ -980,16 +1030,12 @@ body.nav-open { overflow: hidden; }
 .link-arrow::after { content: '→'; font-weight: 400; }
 .link-arrow:hover { gap: 0.9rem; color: var(--text-dark); }
 
-/* ─── 13. Editorial ──────────────────────────────────────────
-   CAPITOLO 2 — le foto dei ritratti sono già il materiale visivo
-   principale. La texture sul contenuto testuale è sottilissima
-   per non competere con le immagini.
-   ─────────────────────────────────────────────────────────── */
+/* ─── 13. Editorial ── */
 .editorial {
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 86vh;
-  background-color: var(--bg-light);
+  background-color: transparent;
 }
 
 .editorial--reverse .editorial__media { order: 2; }
@@ -1014,25 +1060,13 @@ body.nav-open { overflow: hidden; }
   position: relative;
 }
 
-/* Texture beige leggera solo sul pannello testuale — le foto parlano da sole */
-.editorial__content::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: var(--texture-beige) 50% 60% / cover no-repeat;
-  opacity: 0.28;
-  pointer-events: none;
-}
-
-.editorial__content > * { position: relative; z-index: 1; }
 .editorial__content .eyebrow { color: var(--color-tortora); }
 .editorial__content .section-title { color: var(--text-dark); margin-bottom: var(--sp-sm); }
 .editorial__content p { margin-top: var(--sp-xs); max-width: 38ch; }
 
-/* ─── 14. Quote Banner — Warm Accent (unico utilizzo) ───────── */
+/* ─── 14. Quote Banner ── */
 .quote-banner {
-  background-color: var(--bg-accent);
+  background-color: transparent; /* superficie beige continua del wrapper */
   text-align: center;
   padding-block: var(--sp-xxl);
   border-top: 1px solid rgba(195, 184, 167, 0.28);
@@ -1138,11 +1172,6 @@ body.nav-open { overflow: hidden; }
   color: var(--text-light-muted);
 }
 
-/* ─── 16. Testimonials ───────────────────────────────────────
-   CAPITOLO 3 — entra la professionalità. La parete diventa
-   grigia neutra: la stessa superficie, illuminazione fredda.
-   ─────────────────────────────────────────────────────────── */
-
 /* ─── 16. Testimonials — doppia riga marquee infinita ──────────
    Riga 1 → scorre verso sinistra
    Riga 2 → scorre verso destra (direzione opposta)
@@ -1159,25 +1188,10 @@ body.nav-open { overflow: hidden; }
 }
 
 .testimonials {
-  background-color: var(--bg-light-2);
+  background-color: transparent;
   padding-block: var(--sp-xxl);
   overflow: hidden;
-  position: relative;
 }
-
-/* Texture grigia: parete vista dal lato destro */
-.testimonials::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: var(--texture-grigia) 75% 30% / cover no-repeat;
-  opacity: 0.42;
-  pointer-events: none;
-}
-
-.testimonials__header,
-.testimonials__row { position: relative; z-index: 1; }
 .testimonials .eyebrow { color: var(--color-tortora); }
 .testimonials .section-title { color: var(--text-dark); }
 
@@ -1255,13 +1269,9 @@ body.nav-open { overflow: hidden; }
   color: var(--text-dark);
 }
 
-/* ─── 17. Epilazione ─────────────────────────────────────────
-   CAPITOLO 3 — servizio tecnico di precisione.
-   Narrativa: dalla pelle morbida alla competenza tecnica.
-   Background passa al grigio per coerenza col capitolo.
-   ─────────────────────────────────────────────────────────── */
+/* ─── 17. Epilazione ── */
 .epilazione {
-  background-color: var(--bg-light-2);
+  background-color: transparent;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: stretch;
@@ -1275,23 +1285,10 @@ body.nav-open { overflow: hidden; }
 }
 .epilazione__media img { width: 100%; height: 100%; object-fit: cover; }
 
-.epilazione .container { display: flex; align-items: center; height: 100%; position: relative; z-index: 1; }
+.epilazione .container { display: flex; align-items: center; height: 100%; }
 .epilazione__content { padding-block: var(--sp-xxl); }
 .epilazione .eyebrow { color: var(--color-tortora); }
 .epilazione .section-title { color: var(--text-dark); }
-
-/* Texture grigia: porzione alta-sinistra per varietà */
-.epilazione__content::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: var(--texture-grigia) 25% 70% / cover no-repeat;
-  opacity: 0.38;
-  pointer-events: none;
-}
-
-.epilazione__content > * { position: relative; z-index: 1; }
 
 .numbered-list {
   margin-top: var(--sp-lg);
@@ -1322,28 +1319,11 @@ body.nav-open { overflow: hidden; }
 }
 .numbered-list p { font-size: var(--text-sm); }
 
-/* ─── 18. Team ───────────────────────────────────────────────
-   CAPITOLO 3 — volti e competenze. La grigia qui evoca
-   autorevolezza e fiducia professionale.
-   ─────────────────────────────────────────────────────────── */
+/* ─── 18. Team ── */
 .team {
-  background-color: var(--bg-light-2);
+  background-color: transparent;
   padding-block: var(--sp-xxl);
-  position: relative;
 }
-
-/* Texture grigia: zona centrale della parete */
-.team::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: var(--texture-grigia) 50% 55% / cover no-repeat;
-  opacity: 0.40;
-  pointer-events: none;
-}
-
-.team .container { position: relative; z-index: 1; }
 .team .eyebrow { color: var(--color-tortora); }
 .team .section-title { color: var(--text-dark); }
 
@@ -1400,28 +1380,11 @@ body.nav-open { overflow: hidden; }
   color: var(--text-dark-muted);
 }
 
-/* ─── 19. FAQ ────────────────────────────────────────────────
-   CAPITOLO 3 — risposta alle domande, razionalizzazione.
-   Rimane nella grigia per coerenza col capitolo professionale.
-   ─────────────────────────────────────────────────────────── */
+/* ─── 19. FAQ ── */
 .faq {
-  background-color: var(--bg-light-2);
+  background-color: transparent;
   padding-block: var(--sp-xxl);
-  position: relative;
 }
-
-/* Texture grigia: angolo basso-destra per varietà percettiva */
-.faq::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: var(--texture-grigia) 80% 80% / cover no-repeat;
-  opacity: 0.38;
-  pointer-events: none;
-}
-
-.faq .container { position: relative; z-index: 1; }
 .faq .eyebrow { color: var(--color-tortora); }
 .faq .section-title { color: var(--text-dark); }
 
