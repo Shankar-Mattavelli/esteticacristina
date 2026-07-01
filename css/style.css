@@ -155,39 +155,45 @@ p { color: var(--text-dark-muted); font-weight: 400; }
 
 .section-title { font-size: var(--text-section); color: var(--text-dark); }
 
-/* ── Gradiente oro + shimmer automatico ── */
-/* Effetto stampa a caldo: scorre lentamente in loop, accelera al hover */
-@keyframes goldShimmer {
-  0%   { background-position: 0% center; }
-  100% { background-position: 200% center; }
+/* ── Gradiente oro radiale + shimmer random via JS ── */
+/* @property permette l'animazione CSS della posizione del cerchio radiale */
+@property --shimmer-x {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 150%; /* parcheggiato off-screen: oro piatto di default */
+}
+
+/* Sweep del punto luminoso da sinistra verso destra — simula un riflesso su oro curvo */
+@keyframes goldRadialSweep {
+  0%   { --shimmer-x: -30%; }
+  100% { --shimmer-x: 130%; }
 }
 
 .text-gold,
 h1 em.text-gold,
 h2 .text-gold {
-  background: linear-gradient(
-    90deg,
-    #C2A882 0%,
-    #E0CDB0 30%,
-    #f7eddc 50%,
-    #E0CDB0 70%,
+  /* Gradiente radiale: centro brillante che viaggia con --shimmer-x */
+  background: radial-gradient(
+    circle at var(--shimmer-x) 50%,
+    #fff8ec 0%,
+    #f0d9a8 12%,
+    #E0CDB0 28%,
+    #C2A882 55%,
+    #a87842 85%,
     #C2A882 100%
   );
-  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: #C2A882; /* fallback */
+  color: #C2A882; /* fallback no background-clip */
   font-style: italic;
   font-weight: 400;
-  animation: goldShimmer 7s linear infinite;
+  /* Nessuna animazione di default: il JS aggiunge .is-shimmering a random */
 }
 
-/* Accelerazione shimmer su hover — flash raffinato */
-.text-gold:hover,
-h1 em.text-gold:hover,
-h2 .text-gold:hover {
-  animation-duration: 0.8s;
+/* Attivato via JS a intervalli casuali */
+.text-gold.is-shimmering {
+  animation: goldRadialSweep 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .eyebrow {
@@ -434,34 +440,37 @@ body.nav-open { overflow: hidden; }
   width: 100%;
 }
 
-/* ── Slider: 3 frasi in crossfade ── */
+/* ── Slider: 3 frasi in crossfade — opacity gestita da GSAP ── */
 .hero__slider {
   display: grid;
   padding-bottom: var(--sp-sm);
-  /* min-height stabilizza il layout su frasi di lunghezza diversa */
-  min-height: 14rem;
+  min-height: 14rem; /* altezza stabile — evita layout shift tra frasi */
 }
 
 .hero__slide {
-  grid-area: 1 / 1;
-  opacity: 0;
-  transition: opacity 1.2s ease;
+  grid-area: 1 / 1; /* tutti nella stessa cella */
+  opacity: 0;        /* nascosto di default — GSAP gestisce tutto */
   pointer-events: none;
+  /* NESSUNA CSS transition: GSAP controlla opacity e translateY */
 }
 
 .hero__slide.is-active {
-  opacity: 1;
   pointer-events: auto;
 }
 
+/* Eyebrow: light italic, tracking larghissimo, champagne semitrasparente */
 .hero__eyebrow {
-  color: var(--color-gold-light);
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.55em;
+  text-indent: 0.55em; /* compensa l'extra-spazio dopo l'ultima lettera */
+  color: rgba(224, 205, 176, 0.58);
+  font-size: 0.72rem;
   margin-bottom: var(--sp-md);
 }
 
 .hero__title {
   font-size: var(--text-hero);
-  font-weight: 300;      /* Manrope Light — elegante e aereo */
   letter-spacing: -0.025em;
   line-height: 1.08;
   color: var(--text-light);
@@ -469,23 +478,20 @@ body.nav-open { overflow: hidden; }
 
 .hero__line { display: block; }
 
-/* Gold sul titolo hero: gradiente shimmer */
-.hero__title em.text-gold {
-  background: linear-gradient(
-    90deg,
-    #C2A882 0%, #E0CDB0 30%, #f7eddc 50%, #E0CDB0 70%, #C2A882 100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: #C2A882;
-  font-style: italic;
-  font-weight: 300;
-  animation: goldShimmer 7s linear infinite;
+/* Riga 1 — semibold, peso principale */
+.hero__title .hero__line:first-child {
+  font-weight: 600;
 }
-.hero__title em.text-gold:hover {
-  animation-duration: 0.8s;
+
+/* Riga 2 — light, contiene il gold shimmer */
+.hero__title .hero__line:last-child {
+  font-weight: 300;
+}
+
+/* Gold nel titolo hero: eredita la regola .text-gold (gradiente radiale + .is-shimmering) */
+.hero__title em.text-gold {
+  font-weight: 300;
+  font-style: italic;
 }
 
 .hero__divider {
@@ -605,17 +611,7 @@ body.nav-open { overflow: hidden; }
   margin-bottom: var(--sp-sm);
 }
 
-/* Gradiente oro su mission h2 */
-.mission .section-title .text-gold {
-  background: linear-gradient(90deg, #C2A882 0%, #E0CDB0 30%, #f7eddc 50%, #E0CDB0 70%, #C2A882 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: #C2A882;
-  font-style: italic;
-  animation: goldShimmer 7s linear infinite;
-}
+/* mission h2 .text-gold eredita già dalla regola base */
 
 .check-list {
   margin-block: var(--sp-md);
@@ -945,16 +941,7 @@ body.nav-open { overflow: hidden; }
   color: var(--text-light);
 }
 
-.benessere__title .text-gold {
-  background: linear-gradient(90deg, #C2A882 0%, #E0CDB0 30%, #f7eddc 50%, #E0CDB0 70%, #C2A882 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: #C2A882;
-  font-style: italic;
-  animation: goldShimmer 7s linear infinite;
-}
+/* benessere .text-gold eredita dalla regola base */
 
 .benessere__divider {
   display: inline-block;
@@ -1271,16 +1258,7 @@ body.nav-open { overflow: hidden; }
   letter-spacing: -0.015em;
   color: var(--text-light);
 }
-.cta__title .text-gold {
-  background: linear-gradient(90deg, #C2A882 0%, #E0CDB0 30%, #f7eddc 50%, #E0CDB0 70%, #C2A882 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: #C2A882;
-  font-style: italic;
-  animation: goldShimmer 7s linear infinite;
-}
+/* cta .text-gold eredita dalla regola base */
 
 .cta__text {
   max-width: 48ch;
