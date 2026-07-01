@@ -614,7 +614,7 @@ body.nav-open { overflow: hidden; }
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: url('../assets/images/varie/texture-cinematic.png') center / cover no-repeat;
+  background: url('../assets/images/varie/texture-cinematic.png') center top / cover no-repeat;
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent  0%,
@@ -631,6 +631,39 @@ body.nav-open { overflow: hidden; }
   );
 }
 
+/* Blocco cinematic inferiore: stessa texture ruotata 180°, così il
+   nero dell'immagine cade in fondo (footer) invece che in cima.
+   Copre l'intero wrapper (CTA + footer), non solo la CTA. */
+.cinematic-block--bottom::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url('../assets/images/varie/texture-cinematic.png') center top / cover no-repeat;
+  transform: rotate(180deg);
+  /* Mask "invertita" rispetto al blocco superiore: l'intero layer
+     (immagine + mask) ruota insieme di 180°, quindi qui il fade deve
+     partire opaco in cima e sfumare verso il fondo, così dopo la
+     rotazione il fade visivo torna in cima (raccordo con la sezione
+     precedente) e il nero resta pieno in fondo (raccordo col footer). */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black        0%,
+    black        65%,
+    rgba(0,0,0,0.65) 78%,
+    rgba(0,0,0,0.25) 90%,
+    transparent  100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    black        0%,
+    black        65%,
+    rgba(0,0,0,0.65) 78%,
+    rgba(0,0,0,0.25) 90%,
+    transparent  100%
+  );
+}
+
 /* ─── 9. Stats ── */
 .stats {
   background-color: transparent; /* eredita dal cinematic-block */
@@ -642,27 +675,12 @@ body.nav-open { overflow: hidden; }
 .stats .container,
 .mission .container { position: relative; z-index: 1; }
 
-/* ── Blocco cinematic inferiore: CTA + Footer ───────────────────
-   Stessa texture del blocco superiore ma ruotata 180° → il nero
-   dell'immagine cade in fondo, raccordandosi con il footer nero
-   pieno sottostante invece che con la hero.
-   ─────────────────────────────────────────────────────────────── */
-
 .cta {
   background-color: transparent;
   position: relative;
-  overflow: hidden;
-}
-.cta::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: url('../assets/images/varie/texture-cinematic.png') center / cover no-repeat;
-  transform: rotate(180deg);
 }
 .site-footer {
-  background-color: #000000;
+  background-color: transparent;
   position: relative;
 }
 
@@ -1482,7 +1500,7 @@ body.nav-open { overflow: hidden; }
 
 /* ─── 22. Footer ────────────────────────────────────────────── */
 .site-footer {
-  background-color: #000000;
+  background-color: transparent; /* cinematic-block--bottom */
   color: var(--text-light-muted);
   padding-top: var(--sp-xxl);
   padding-bottom: var(--sp-lg);
