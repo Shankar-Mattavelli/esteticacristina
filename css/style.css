@@ -834,9 +834,11 @@ body.nav-open { overflow: hidden; }
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(26, 24, 22, 0.70) 0%,
-    rgba(26, 24, 22, 0.18) 55%,
-    transparent 100% /* mostra l'ambiente beige del wrapper */
+    rgba(26, 24, 22, 0.68) 0%,
+    rgba(26, 24, 22, 0.26) 38%,
+    rgba(26, 24, 22, 0.58) 70%,
+    rgba(26, 24, 22, 0.70) 90%,
+    #C3B29D 100% /* fade nella tinta piatta dell'ambiente beige, niente stacco netto */
   );
 }
 
@@ -1600,7 +1602,7 @@ body.nav-open { overflow: hidden; }
   .testimonials__grid,
   .team__grid,
   .site-footer__grid { grid-template-columns: 1fr; }
-  .why-us__content    { margin-top: -4rem; }
+  .why-us__content    { margin-top: -2rem; }
   .site-footer__bottom { flex-direction: column; align-items: flex-start; }
   .hero__slider       { min-height: 18rem; }
 }
