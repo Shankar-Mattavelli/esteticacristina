@@ -302,13 +302,12 @@ section { position: relative; }
               box-shadow var(--t-fast), border-color var(--t-fast);
 }
 
-/* Diventa scuro e sfocato appena si scrolla */
+/* Semi-trasparente anche quando scrollata: il volto rimane visibile */
 .site-header.is-scrolled {
-  background-color: rgba(26, 24, 22, 0.92);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--border-dark);
-  box-shadow: 0 1px 0 var(--border-dark);
+  background-color: rgba(26, 24, 22, 0.52);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 .site-header__inner {
@@ -450,13 +449,16 @@ body.nav-open { overflow: hidden; }
       rgba(26,24,22,0.52) 72%,
       rgba(26,24,22,0.72) 100%
     ),
-    /* Fade inizia al 40% — transizione più ampia e dolce verso #767676 */
+    /* Fade inizia al 28%: il grigio #767676 emerge già nella zona centrale
+       e riempie completamente il basso — nessuna zona scura non sfumata */
     linear-gradient(
       180deg,
       rgba(118,118,118,0.00) 0%,
-      rgba(118,118,118,0.00) 40%,
-      rgba(118,118,118,0.30) 62%,
-      rgba(118,118,118,0.70) 82%,
+      rgba(118,118,118,0.00) 28%,
+      rgba(118,118,118,0.18) 44%,
+      rgba(118,118,118,0.45) 58%,
+      rgba(118,118,118,0.72) 74%,
+      rgba(118,118,118,0.90) 88%,
       #767676 100%
     );
   z-index: 1;
