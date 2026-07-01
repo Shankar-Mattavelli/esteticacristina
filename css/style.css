@@ -609,6 +609,14 @@ body.nav-open { overflow: hidden; }
   margin-top: -2px;
 }
 
+/* Il blocco superiore ha la hero scura sopra (nero va bene come base
+   sotto la mask). Il blocco inferiore ha invece "prodotti" (grigio
+   --bg-dark) subito sopra: se la base restasse nera, il fade in cima
+   alla mask rivelerebbe un nero secco invece di raccordarsi col grigio. */
+.cinematic-block--bottom {
+  background-color: var(--bg-dark);
+}
+
 .cinematic-block:not(.cinematic-block--bottom)::before {
   content: '';
   position: absolute;
