@@ -57,6 +57,11 @@ address { font-style: normal; }
 
 /* ─── 2. Design Tokens ──────────────────────────────────────── */
 :root {
+  /* ── Texture slots: aggiorna la variabile quando carichi nuove texture ── */
+  --texture-01: url('../assets/images/varie/sfondo-texture.png');
+  --texture-02: none; /* slot libero — prossima texture */
+  --texture-03: none; /* slot libero — prossima texture */
+
   /* ── Backgrounds ── */
   /* Cinematico: #767676 schiarito progressivamente → base dark unificata per hero/stats/mission */
   --bg-cinematic: #1a1816;   /* #767676 scurito — hero, stats, mission, tono caldo */
@@ -156,28 +161,35 @@ p { color: var(--text-dark-muted); font-weight: 400; }
 .section-title { font-size: var(--text-section); color: var(--text-dark); }
 
 /* ── Gradiente oro radiale + shimmer random via JS ── */
-/* @property anima la posizione del cerchio radiale sul testo dorato */
+/* @property: X e Y del cerchio radiale — animabili separatamente */
 @property --shimmer-x {
   syntax: '<percentage>';
   inherits: false;
   initial-value: 50%;
 }
+@property --shimmer-y {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 50%;
+}
 
-/*
- * Il punto luminoso oscilla lentamente da sinistra a destra e ritorna
- * (alternate): nessun salto, animazione quasi completamente continua.
- * Durata 11s per direzione → ciclo completo ~22s, movimento impercettibile.
- */
-@keyframes goldRadialSweep {
-  from { --shimmer-x: 5%; }
-  to   { --shimmer-x: 95%; }
+/* Movimento 2D organico: il riflesso si muove in tutte le direzioni
+   descrivendo un percorso irregolare non ripetitivo visivamente. */
+@keyframes goldRadialFloat {
+  0%   { --shimmer-x: 18%; --shimmer-y: 60%; }
+  18%  { --shimmer-x: 78%; --shimmer-y: 22%; }
+  35%  { --shimmer-x: 55%; --shimmer-y: 80%; }
+  52%  { --shimmer-x: 88%; --shimmer-y: 45%; }
+  68%  { --shimmer-x: 25%; --shimmer-y: 20%; }
+  82%  { --shimmer-x: 65%; --shimmer-y: 72%; }
+  100% { --shimmer-x: 18%; --shimmer-y: 60%; }
 }
 
 .text-gold,
 h1 em.text-gold,
 h2 .text-gold {
   background: radial-gradient(
-    circle at var(--shimmer-x) 50%,
+    circle at var(--shimmer-x) var(--shimmer-y),
     #fff8ec 0%,
     #f0d9a8 12%,
     #E0CDB0 28%,
@@ -201,10 +213,8 @@ h2 .text-gold {
     0 0  24px rgba(194, 168, 130, 0.32),
     0 0  60px rgba(194, 168, 130, 0.18),
     0 0 110px rgba(194, 168, 130, 0.09);
-  /* Automatico: il punto luminoso oscilla avanti/indietro.
-     3s per direzione = ciclo totale ~6s. Il JS assegna un
-     animation-delay negativo random per desincronizzare gli elementi. */
-  animation: goldRadialSweep 3s ease-in-out infinite alternate;
+  /* Float 2D: 2.2s ciclo, percorso irregolare in X e Y */
+  animation: goldRadialFloat 2.2s ease-in-out infinite;
 }
 
 .eyebrow {
@@ -297,12 +307,25 @@ section { position: relative; }
               box-shadow var(--t-fast), border-color var(--t-fast);
 }
 
-/* Semi-trasparente anche quando scrollata: il volto rimane visibile */
+/* Semi-trasparente anche quando scrollata */
 .site-header.is-scrolled {
-  background-color: rgba(26, 24, 22, 0.52);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background-color: rgba(10, 9, 8, 0.38);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border-bottom: none;
+}
+
+/* Gradiente morbido sotto la navbar: nessuna linea netta,
+   solo una dissolvenza verso trasparente nel content */
+.site-header::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  height: 72px;
+  background: linear-gradient(to bottom, rgba(6,5,4,0.28), transparent);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .site-header__inner {
@@ -343,7 +366,23 @@ section { position: relative; }
 .main-nav__link:hover::after,
 .main-nav__link.is-active::after { transform: scaleX(1); }
 
-.header-cta { grid-column: 3; justify-self: end; }
+.header-cta {
+  grid-column: 3;
+  justify-self: end;
+  /* Override btn--gold: vetro satinato con bordo oro, non solido */
+  background: rgba(194, 168, 130, 0.08) !important;
+  border: 1px solid rgba(194, 168, 130, 0.48) !important;
+  color: var(--color-gold-light) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 0 transparent;
+  letter-spacing: 0.20em;
+}
+.header-cta:hover {
+  background: rgba(194, 168, 130, 0.18) !important;
+  border-color: rgba(194, 168, 130, 0.75) !important;
+  box-shadow: 0 0 18px rgba(194, 168, 130, 0.14) !important;
+  transform: none;
+}
 .nav-toggle  { grid-column: 3; justify-self: end; }
 
 .nav-toggle {
@@ -590,7 +629,7 @@ body.nav-open { overflow: hidden; }
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: url('../assets/images/varie/sfondo-texture.png') center / cover no-repeat;
+  background: var(--texture-01) center / cover no-repeat;
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent  0%,
@@ -1551,4 +1590,80 @@ body.nav-open { overflow: hidden; }
   :root { --pad-x: 1.2rem; }
   .cta__actions { flex-direction: column; align-items: stretch; }
   .back-to-top  { width: 40px; height: 40px; inset-inline-end: 1rem; inset-block-end: 1rem; }
+}
+
+/* ───────────────────────────────────────────────────────────────
+   ANIMAZIONI PREMIUM — sezioni generali
+   ─────────────────────────────────────────────────────────────── */
+
+/* Hover cards: ombra calda, non nera */
+.why-card,
+.tech-card,
+.team-card,
+.testimonial-card {
+  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94),
+              box-shadow 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.why-card:hover,
+.tech-card:hover,
+.team-card:hover {
+  transform: translateY(-8px) scale(1.012);
+  box-shadow: 0 24px 56px rgba(115,104,102,0.20);
+}
+
+/* Link arrow: underscore animato al posto del gap */
+.link-arrow::after {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.link-arrow:hover::after { transform: translateX(5px); }
+
+/* Numero lista ordinata: pulse sull'index */
+.numbered-list__index {
+  transition: color var(--t-fast), transform var(--t-fast);
+}
+.numbered-list li:hover .numbered-list__index {
+  color: var(--color-gold-light);
+  transform: scale(1.15);
+}
+
+/* Quote banner: virgoletta decorativa leggermente animate */
+.quote-banner__mark {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.quote-banner:hover .quote-banner__mark {
+  opacity: 0.7;
+  transform: scale(1.08) translateY(-4px);
+}
+
+/* Editorial image: leggero zoom al reveal (via GSAP già) +
+   bordo luminoso sottile al hover */
+.editorial__media::after {
+  transition: opacity 0.6s ease;
+}
+.editorial:hover .editorial__media::after {
+  opacity: 0.85;
+}
+
+/* Accordion: cambia colore del testo oro al expand */
+.accordion__trigger[aria-expanded="true"] {
+  color: var(--color-gold-dark);
+}
+
+/* Stat numbers: glow dorato quando entra in viewport
+   (classe aggiunta da GSAP al completamento count-up) */
+.stat__number {
+  transition: text-shadow 1s ease;
+}
+.stat__number.counted {
+  text-shadow: 0 0 30px rgba(194,168,130,0.22);
+}
+
+/* Eyebrow: tracking che si apre all'entrata */
+.eyebrow.reveal {
+  letter-spacing: 0.12em;
+  transition: letter-spacing 1s ease, opacity 0.8s ease, transform 0.8s ease;
+}
+.eyebrow.reveal.is-visible {
+  letter-spacing: 0.24em;
 }

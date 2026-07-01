@@ -31,6 +31,7 @@
       initHeroSlider();
       initReveals();
       initParallax();
+      initSectionAnimations();
     } else {
       showAllImmediately();
       initHeroSliderFallback();
@@ -43,11 +44,10 @@
     initCountersFallback();
   }
 
-  /* Desincronizza gli elementi gold: ognuno parte in un punto
-     diverso del ciclo (delay negativo random sul ciclo da 6s). */
+  /* Desincronizza il float 2D di ogni elemento gold (ciclo 2.2s) */
   if (!prefersReducedMotion) {
     document.querySelectorAll('.text-gold').forEach(el => {
-      el.style.animationDelay = (-Math.random() * 6).toFixed(2) + 's';
+      el.style.animationDelay = (-Math.random() * 2.2).toFixed(2) + 's';
     });
   }
 
@@ -206,6 +206,73 @@
   if (!prefersReducedMotion) {
     document.querySelectorAll('.text-gold').forEach(el => {
       el.style.animationDelay = -(Math.random() * 10).toFixed(2) + 's';
+    });
+  }
+
+  /* ══════════════════════════════════════════════
+   * ANIMAZIONI SEZIONI — oltre il base reveal
+   * Editorial slide-in, numbered list stagger,
+   * quote banner scale, stat number glow.
+   * ══════════════════════════════════════════════ */
+  function initSectionAnimations() {
+
+    /* Editorial: testo scivola dall'esterno */
+    document.querySelectorAll('.editorial__content').forEach((el, i) => {
+      const xDir = i % 2 === 0 ? 50 : -50;
+      gsap.from(el, {
+        x: xDir, opacity: 0, duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 82%', once: true },
+      });
+    });
+
+    /* Numbered list epilazione: voci entrano a cascata */
+    const listItems = document.querySelectorAll('.numbered-list li');
+    if (listItems.length) {
+      gsap.from(listItems, {
+        x: -28, opacity: 0, duration: 0.7,
+        ease: 'power2.out', stagger: 0.13,
+        scrollTrigger: { trigger: '.numbered-list', start: 'top 80%', once: true },
+      });
+    }
+
+    /* Quote banner: leggero zoom in */
+    const quoteText = document.querySelector('.quote-banner__text');
+    if (quoteText) {
+      gsap.from(quoteText, {
+        scale: 0.94, opacity: 0, duration: 1.4,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: quoteText, start: 'top 85%', once: true },
+      });
+    }
+
+    /* Contatori: aggiunge classe .counted per text-shadow oro */
+    document.querySelectorAll('.stat__number').forEach(el => {
+      ScrollTrigger.create({
+        trigger: el, start: 'top 85%', once: true,
+        onEnter: () => setTimeout(() => el.classList.add('counted'), 1900),
+      });
+    });
+
+    /* Tech card images: lieve scale in al reveal */
+    gsap.utils.toArray('.tech-card').forEach((card, i) => {
+      gsap.from(card, {
+        y: 40, opacity: 0, duration: 0.9,
+        ease: 'power2.out',
+        delay: (i % 3) * 0.1,
+        scrollTrigger: { trigger: card, start: 'top 88%', once: true },
+      });
+    });
+
+    /* Team cards: entrano a scacchiera */
+    gsap.utils.toArray('.team-card').forEach((card, i) => {
+      gsap.from(card, {
+        y: i % 2 === 0 ? 50 : 30,
+        opacity: 0, duration: 0.9,
+        ease: 'power2.out',
+        delay: (i % 4) * 0.08,
+        scrollTrigger: { trigger: '.team__grid', start: 'top 82%', once: true },
+      });
     });
   }
 
