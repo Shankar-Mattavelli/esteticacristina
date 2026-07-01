@@ -192,8 +192,10 @@ h2 .text-gold {
   font-style: italic;
   font-weight: 400;
   padding-right: 0.18em; /* fix italic overhang clipping */
-  /* Continuo, molto lento, alternate → nessun salto al reset */
-  animation: goldRadialSweep 11s ease-in-out infinite alternate;
+  /* Continuo, alternate → nessun salto al reset.
+     La durata base è 5s; il JS aggiunge animation-delay randomico per
+     disincronizzare ogni parola e dare naturalezza al movimento. */
+  animation: goldRadialSweep 5s ease-in-out infinite alternate;
 }
 
 .eyebrow {
@@ -421,13 +423,20 @@ body.nav-open { overflow: hidden; }
   will-change: transform;
 }
 
-/* Overlay doppio: direzione artistica (135deg) + profondità verticale per leggibilità */
+/* Overlay doppio: direzione artistica (135deg) + fade verticale.
+   Il fondo diventa completamente opaco (#1a1816) → dissolve senza
+   soluzione di continuità nella sezione .stats (stesso colore). */
 .hero__overlay {
   position: absolute;
   inset: 0;
   background:
     linear-gradient(135deg, rgba(28,26,24,0.52) 0%, rgba(26,24,22,0.28) 45%, rgba(28,26,24,0.52) 100%),
-    linear-gradient(180deg, rgba(26,24,22,0.08) 0%, rgba(26,24,22,0.58) 62%, rgba(26,24,22,0.92) 100%);
+    linear-gradient(180deg,
+      rgba(26,24,22,0.08) 0%,
+      rgba(26,24,22,0.55) 55%,
+      rgba(26,24,22,0.88) 78%,
+      #1a1816 100%
+    );
   z-index: 1;
 }
 
@@ -552,7 +561,7 @@ body.nav-open { overflow: hidden; }
 .stats {
   background-color: var(--bg-cinematic);
   padding-block: var(--sp-xxl);
-  border-top: 1px solid rgba(248, 245, 241, 0.06);
+  /* Nessun bordo: il fade dell'overlay hero crea continuità visiva */
 }
 
 .stats .eyebrow {

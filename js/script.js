@@ -194,9 +194,14 @@
     }, 4200);
   }
 
-  /* Gold shimmer: animazione continua gestita interamente via CSS —
-     @keyframes goldRadialSweep + animation-direction:alternate
-     Nessuna logica JS necessaria. */
+  /* Randomizza il punto di partenza di ogni .text-gold nel ciclo:
+     delay negativo = l'animazione inizia a metà corsa → ogni parola
+     si muove in modo indipendente, effetto naturale e non sincronizzato. */
+  if (!prefersReducedMotion) {
+    document.querySelectorAll('.text-gold').forEach(el => {
+      el.style.animationDelay = -(Math.random() * 10).toFixed(2) + 's';
+    });
+  }
 
   /* ══════════════════════════════════════════════
    * REVEALS — ScrollTrigger batch
