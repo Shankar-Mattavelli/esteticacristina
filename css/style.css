@@ -506,9 +506,10 @@ body.nav-open { overflow: hidden; }
 }
 
 .hero__divider {
-  display: inline-block;
+  display: block;
   width: 56px;
   height: 1px;
+  margin-inline: auto; /* centrato matematicamente, indipendente da GSAP */
   background: linear-gradient(to right, transparent, #C2A882, transparent);
   margin-block: var(--sp-md) 0;
   opacity: 0; /* GSAP anima */
