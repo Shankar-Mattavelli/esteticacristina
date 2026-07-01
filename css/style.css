@@ -61,12 +61,11 @@ address { font-style: normal; }
    * SISTEMA TEXTURE — la stessa parete con illuminazioni diverse.
    * Stessa materia, diversa luce: sono il materiale del sito.
    */
-  --texture-dark:  url('../assets/images/varie/sfondo-texture.png');   /* buio — Capitoli 0 e 4 (APPROVATI) */
+  --texture-dark:  url('../assets/images/varie/sfondo-texture.png');   /* buio — Capitolo 4 (APPROVATO) */
+  --texture-hero-under: url('../assets/images/varie/sfondo-texture-hero.png'); /* buio — blocco sotto la hero */
   --texture-beige: url('../assets/images/varie/texture-beige.png');    /* pelle/calore — Capitolo 2 */
   --texture-grigia: url('../assets/images/varie/texture-grigia.png');  /* professionalità — Capitolo 3 */
   --texture-taupe: url('../assets/images/varie/texture-taupe.png');    /* transizione scura — slot disponibile */
-  /* Alias per compatibilità con il codice esistente */
-  --texture-01: var(--texture-dark);
 
   /* ── Backgrounds ── */
   /* Cinematico: #767676 schiarito progressivamente → base dark unificata per hero/stats/mission */
@@ -624,7 +623,7 @@ body.nav-open { overflow: hidden; }
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: var(--texture-01) center / cover no-repeat;
+  background: var(--texture-hero-under) center / cover no-repeat;
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent  0%,
@@ -658,6 +657,7 @@ body.nav-open { overflow: hidden; }
    texture visibile in alto, si dissolve verso il fondo pagina.
    ─────────────────────────────────────────────────────────────── */
 .cinematic-block--bottom::before {
+  background-image: var(--texture-dark);
   -webkit-mask-image: linear-gradient(
     to bottom,
     black        0%,
