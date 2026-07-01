@@ -98,6 +98,13 @@
     /* Prepara gli elementi e li osserva */
     targets.forEach(el => {
       el.dataset.twText = extractText(el);
+
+      /* Blocca altezza e larghezza PRIMA di svuotare il testo
+         così il box non cambia dimensione durante la digitazione */
+      const rect = el.getBoundingClientRect();
+      if (rect.height > 0) el.style.minHeight = rect.height + 'px';
+      if (rect.width  > 0) el.style.width     = rect.width  + 'px';
+
       el.innerHTML = '';
 
       const attr = el.nextElementSibling?.hasAttribute('data-typewriter-attr')
