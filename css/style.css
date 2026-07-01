@@ -451,38 +451,6 @@ body.nav-open { overflow: hidden; }
   z-index: 1;
 }
 
-/* ─── Ponte di transizione hero → stats ─────────────────────────
-   Si sovrappone agli ultimi pixel della hero (margin-top negativo)
-   eliminando qualsiasi artefatto sub-pixel tra gli elementi.
-   Parte TRASPARENTE → la foto della hero mostra attraverso →
-   poi diventa nero in pochi pixel → poi sfuma lentamente a #767676.
-   ─────────────────────────────────────────────────────────────── */
-.section-bridge {
-  display: block;
-  position: relative;
-  z-index: 5;              /* sopra tutti i layer della hero */
-  margin-top: -6px;        /* chiude l'artefatto sub-pixel */
-  height: 300px;
-  pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.00) 0%,   /* trasparente: la foto hero mostra */
-    rgba(0,0,0,0.00) 3%,   /* ancora trasparente */
-    rgba(8,7,6,  1.00) 14%,/* nero puro — colore foto hero in quel punto */
-    #161412 26%,
-    #2a2724 40%,
-    #424040 53%,
-    #5a5858 65%,
-    #6a6868 75%,
-    #737272 84%,
-    #767676 92%,
-    #767676 100%
-  );
-}
-
-@media (max-width: 720px) {
-  .section-bridge { height: 180px; margin-top: -4px; }
-}
 
 .hero__content {
   position: relative;
@@ -601,11 +569,25 @@ body.nav-open { overflow: hidden; }
   50%       { opacity: 0.3; transform: scaleY(0.5); }
 }
 
-/* ─── 9. Stats — stesso #767676 del fade hero ───────────────── */
+/* ─── 9. Stats — gradiente che parte scuro e arriva a #767676 ── */
 .stats {
-  background-color: #767676;
+  /* margin-top negativo chiude qualsiasi artefatto sub-pixel col hero */
+  margin-top: -2px;
+  position: relative;
+  z-index: 1;
   padding-block: var(--sp-xxl);
-  /* Nessun bordo: il fade dell'overlay hero crea continuità visiva */
+  /* Top: quasi nero (= colore fondo hero) → #767676 nel primo ~35% */
+  background: linear-gradient(
+    to bottom,
+    #080706 0%,
+    #141210 6%,
+    #2c2a27 16%,
+    #484644 28%,
+    #626060 38%,
+    #6e6c6c 46%,
+    #767676 55%,
+    #767676 100%
+  );
 }
 
 .stats .eyebrow {
