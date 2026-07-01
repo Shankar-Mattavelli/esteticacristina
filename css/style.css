@@ -452,31 +452,36 @@ body.nav-open { overflow: hidden; }
 }
 
 /* ─── Ponte di transizione hero → stats ─────────────────────────
-   Elemento separato: non tocca l'immagine né l'overlay della Hero.
-   Parte dal nero della Hero e sfuma MOLTO lentamente verso #767676.
-   L'utente non percepisce il punto esatto di cambio colore.
+   Si sovrappone agli ultimi pixel della hero (margin-top negativo)
+   eliminando qualsiasi artefatto sub-pixel tra gli elementi.
+   Parte TRASPARENTE → la foto della hero mostra attraverso →
+   poi diventa nero in pochi pixel → poi sfuma lentamente a #767676.
    ─────────────────────────────────────────────────────────────── */
 .section-bridge {
   display: block;
-  height: 260px;
+  position: relative;
+  z-index: 5;              /* sopra tutti i layer della hero */
+  margin-top: -6px;        /* chiude l'artefatto sub-pixel */
+  height: 300px;
+  pointer-events: none;
   background: linear-gradient(
     to bottom,
-    #0a0908 0%,      /* nero della hero — continuazione dello sfondo */
-    #0a0908 18%,     /* ~47px di nero puro prima che inizi qualsiasi cambiamento */
-    #1a1816 30%,     /* quasi nero */
-    #2e2b28 44%,     /* grigio scurissimo */
-    #464342 56%,     /* grigio molto scuro */
-    #5c5a59 67%,     /* grigio medio-scuro */
-    #6b6969 77%,     /* grigio quasi obiettivo */
-    #727070 86%,
-    #767676 94%,     /* colore sezione stats */
+    rgba(0,0,0,0.00) 0%,   /* trasparente: la foto hero mostra */
+    rgba(0,0,0,0.00) 3%,   /* ancora trasparente */
+    rgba(8,7,6,  1.00) 14%,/* nero puro — colore foto hero in quel punto */
+    #161412 26%,
+    #2a2724 40%,
+    #424040 53%,
+    #5a5858 65%,
+    #6a6868 75%,
+    #737272 84%,
+    #767676 92%,
     #767676 100%
   );
-  pointer-events: none;
 }
 
 @media (max-width: 720px) {
-  .section-bridge { height: 160px; }
+  .section-bridge { height: 180px; margin-top: -4px; }
 }
 
 .hero__content {
