@@ -433,7 +433,7 @@ body.nav-open { overflow: hidden; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center center;
+  object-position: center 30%;
   will-change: transform;
 }
 
@@ -485,9 +485,15 @@ body.nav-open { overflow: hidden; }
   letter-spacing: -0.025em;
   line-height: 1.08;
   color: var(--text-light);
+  width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
-.hero__line { display: block; }
+.hero__line {
+  display: block;
+  width: 100%;
+}
 
 /* Riga 1 — semibold, peso principale */
 .hero__title .hero__line:first-child {
