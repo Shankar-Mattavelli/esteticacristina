@@ -599,8 +599,9 @@ body.nav-open { overflow: hidden; }
    Un solo pseudo-elemento ::before gestisce il fade per entrambe
    le sezioni → nessun bordo interno visibile.
    - Layer 0: #000000 (sempre visibile sotto)
-   - Layer 1 (::before): colore piatto con mask che fade da
-     transparent in cima → piena visibilità dal 25% in poi
+   - Layer 1 (::before): texture con mask che fade da transparent
+     in cima → piena visibilità dal 25% in poi (nero già in cima
+     nell'immagine stessa, il mask rifinisce il raccordo con la hero)
    ─────────────────────────────────────────────────────────────── */
 .cinematic-block {
   background-color: #000000;
@@ -608,12 +609,12 @@ body.nav-open { overflow: hidden; }
   margin-top: -2px;
 }
 
-.cinematic-block::before {
+.cinematic-block:not(.cinematic-block--bottom)::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: var(--bg-cinematic);
+  background: url('../assets/images/varie/texture-cinematic.png') center / cover no-repeat;
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent  0%,
@@ -642,16 +643,26 @@ body.nav-open { overflow: hidden; }
 .mission .container { position: relative; z-index: 1; }
 
 /* ── Blocco cinematic inferiore: CTA + Footer ───────────────────
-   Stessa texture e stesso fade del blocco superiore (fade in cima,
-   piena visibilità sotto) → nessuna regola propria da sovrascrivere.
+   Stessa texture del blocco superiore ma ruotata 180° → il nero
+   dell'immagine cade in fondo, raccordandosi con il footer nero
+   pieno sottostante invece che con la hero.
    ─────────────────────────────────────────────────────────────── */
 
 .cta {
   background-color: transparent;
   position: relative;
+  overflow: hidden;
+}
+.cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url('../assets/images/varie/texture-cinematic.png') center / cover no-repeat;
+  transform: rotate(180deg);
 }
 .site-footer {
-  background-color: transparent;
+  background-color: #000000;
   position: relative;
 }
 
@@ -1471,7 +1482,7 @@ body.nav-open { overflow: hidden; }
 
 /* ─── 22. Footer ────────────────────────────────────────────── */
 .site-footer {
-  background-color: transparent; /* cinematic-block--bottom */
+  background-color: #000000;
   color: var(--text-light-muted);
   padding-top: var(--sp-xxl);
   padding-bottom: var(--sp-lg);
