@@ -31,6 +31,7 @@
       initHeroSlider();
       initReveals();
       initParallax();
+      initTestimonialsHScroll();
     } else {
       showAllImmediately();
       initHeroSliderFallback();
@@ -43,7 +44,37 @@
     initCountersFallback();
   }
 
-  /* Gold shimmer: gestito interamente via CSS animation (nessun JS necessario) */
+  /* Gold shimmer: gestito via CSS animation — nessun JS necessario */
+
+  /* ══════════════════════════════════════════════
+   * TESTIMONIALS — scroll orizzontale con pin GSAP
+   *
+   * La sezione si "blocca" (pin) e le card scorrono
+   * orizzontalmente mentre l'utente scrolla verticalmente.
+   * Layout a scacchiera: card pari slittate in basso via CSS.
+   * ══════════════════════════════════════════════ */
+  function initTestimonialsHScroll() {
+    const section = document.querySelector('.testimonials');
+    const track   = document.querySelector('.testimonials__track');
+    if (!section || !track) return;
+
+    const getScrollDist = () =>
+      track.scrollWidth - window.innerWidth + 80;
+
+    gsap.to(track, {
+      x: () => -getScrollDist(),
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: () => '+=' + getScrollDist(),
+        pin: true,
+        scrub: 1.2,
+        invalidateOnRefresh: true,
+        anticipatePin: 1,
+      },
+    });
+  }
 
   /* ──────────────────────────────────────────────
    * Fallback: mostra tutto immediatamente

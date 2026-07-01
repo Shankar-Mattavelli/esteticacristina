@@ -192,6 +192,15 @@ h2 .text-gold {
   font-style: italic;
   font-weight: 400;
   padding-right: 0.18em; /* fix italic overhang clipping */
+  /*
+   * Glow atmosferico: non è un vero glow box, è un text-shadow
+   * che si fonde con il radial shimmer creando una luminescenza dorata
+   * ampia e morbida attorno alle lettere — effetto stampa su oro caldo.
+   */
+  text-shadow:
+    0 0  24px rgba(194, 168, 130, 0.32),
+    0 0  60px rgba(194, 168, 130, 0.18),
+    0 0 110px rgba(194, 168, 130, 0.09);
   /* Continuo, alternate → nessun salto al reset.
      La durata base è 5s; il JS aggiunge animation-delay randomico per
      disincronizzare ogni parola e dare naturalezza al movimento. */
@@ -423,19 +432,27 @@ body.nav-open { overflow: hidden; }
   will-change: transform;
 }
 
-/* Overlay doppio: direzione artistica (135deg) + fade verticale.
-   Il fondo diventa completamente opaco (#1a1816) → dissolve senza
-   soluzione di continuità nella sezione .stats (stesso colore). */
+/* Overlay: vignette radiale (centro aperto → viso visibile) +
+   fade verticale che sfuma nel colore #767676 delle sezioni successive. */
 .hero__overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(135deg, rgba(28,26,24,0.52) 0%, rgba(26,24,22,0.28) 45%, rgba(28,26,24,0.52) 100%),
-    linear-gradient(180deg,
-      rgba(26,24,22,0.08) 0%,
-      rgba(26,24,22,0.55) 55%,
-      rgba(26,24,22,0.88) 78%,
-      #1a1816 100%
+    /* Vignette radiale: bordi scuri, centro quasi trasparente → viso definito */
+    radial-gradient(
+      ellipse 70% 60% at 50% 42%,
+      rgba(26,24,22,0.00) 0%,
+      rgba(26,24,22,0.08) 35%,
+      rgba(26,24,22,0.55) 75%,
+      rgba(26,24,22,0.78) 100%
+    ),
+    /* Fade verticale: trasparente → #767676 (colore sezione Il Centro) */
+    linear-gradient(
+      180deg,
+      rgba(118,118,118,0.00) 0%,
+      rgba(118,118,118,0.00) 52%,
+      rgba(118,118,118,0.45) 76%,
+      #767676 100%
     );
   z-index: 1;
 }
@@ -557,9 +574,9 @@ body.nav-open { overflow: hidden; }
   50%       { opacity: 0.3; transform: scaleY(0.5); }
 }
 
-/* ─── 9. Stats — stesso cinematic dell'hero ─────────────────── */
+/* ─── 9. Stats — stesso #767676 del fade hero ───────────────── */
 .stats {
-  background-color: var(--bg-cinematic);
+  background-color: #767676;
   padding-block: var(--sp-xxl);
   /* Nessun bordo: il fade dell'overlay hero crea continuità visiva */
 }
@@ -596,9 +613,9 @@ body.nav-open { overflow: hidden; }
   color: var(--text-light-muted);
 }
 
-/* ─── 10. Mission — stesso cinematic di hero/stats ──────────── */
+/* ─── 10. Mission — stesso #767676 di stats ─────────────────── */
 .mission {
-  background-color: var(--bg-cinematic);
+  background-color: #767676;
   color: var(--text-light);
   padding-block: var(--sp-xxl);
   border-top: 1px solid rgba(248, 245, 241, 0.06);
@@ -965,41 +982,61 @@ body.nav-open { overflow: hidden; }
   color: var(--text-light-muted);
 }
 
-/* ─── 16. Testimonials ──────────────────────────────────────── */
+/* ─── 16. Testimonials — scroll orizzontale GSAP ────────────── */
 .testimonials {
   background-color: var(--bg-light-2);
-  padding-block: var(--sp-xxl);
+  /* Altezza gestita da GSAP pin (aggiunge spazio automaticamente) */
 }
 .testimonials .eyebrow { color: var(--color-tortora); }
 .testimonials .section-title { color: var(--text-dark); }
 
-.testimonials__grid {
-  margin-top: var(--sp-xl);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-md);
+.testimonials__header {
+  padding-top: var(--sp-xxl);
+  padding-bottom: var(--sp-lg);
+}
+
+/* Track orizzontale: contiene tutte le card in fila */
+.testimonials__track {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.6rem;
+  padding-inline: var(--pad-x);
+  padding-bottom: var(--sp-xxl);
+  will-change: transform;
 }
 
 .testimonial-card {
+  flex: 0 0 340px;
   background-color: var(--bg-light);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-sm);
   padding: var(--sp-lg) var(--sp-md) var(--sp-md);
-  transition: transform var(--t-base), box-shadow var(--t-base);
-}
-.testimonial-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 44px rgba(115, 104, 102, 0.14);
 }
 
-.testimonial-card__mark {
-  display: block;
-  font-size: 4.5rem;
-  font-weight: 300;
-  line-height: 0.8;
-  color: var(--color-gold-dark);
-  opacity: 0.42;
+/* Scacchiera: card pari slittano verso il basso */
+.testimonials__track .testimonial-card:nth-child(even) {
+  margin-top: 3.5rem;
+}
+
+.testimonial-card__source {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: var(--sp-md);
+}
+
+.testimonial-card__platform {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-tortora);
+}
+
+.testimonial-card__rating {
+  color: var(--color-gold-dark);
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
 }
 
 .testimonial-card blockquote p {
@@ -1008,28 +1045,15 @@ body.nav-open { overflow: hidden; }
   line-height: 1.8;
 }
 
-.testimonial-card__rating {
-  margin-top: var(--sp-md);
-  color: var(--color-gold-dark);
-  letter-spacing: 0.14em;
-  font-size: 0.75rem;
-}
-
 .testimonial-card figcaption {
   margin-top: var(--sp-sm);
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
+  border-top: 1px solid var(--border-light);
+  padding-top: var(--sp-sm);
 }
 .testimonial-card__name {
   font-size: 0.88rem;
   font-weight: 500;
   color: var(--text-dark);
-}
-.testimonial-card__place {
-  font-size: var(--text-xs);
-  color: var(--text-dark-muted);
-  letter-spacing: 0.1em;
 }
 
 /* ─── 17. Epilazione ────────────────────────────────────────── */
