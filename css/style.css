@@ -436,18 +436,28 @@ body.nav-open { overflow: hidden; }
   will-change: transform;
 }
 
-/* Overlay: SOLO vignette radiale per leggibilità del viso.
-   Nessun fade grigio — la transizione è gestita da .section-bridge. */
+/* Overlay hero: vignette radiale (leggibilità viso) +
+   nero solido sull'ultimo 7% (zona sotto "SCOPRI" — nessun contenuto lì).
+   Questo crea un bordo inferiore con colore PIATTO e NOTO (#000)
+   così la sezione stats può matcharlo pixel-perfect. */
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse 72% 62% at 50% 42%,
-    rgba(20,18,16,0.00) 0%,
-    rgba(20,18,16,0.06) 32%,
-    rgba(20,18,16,0.48) 70%,
-    rgba(20,18,16,0.70) 100%
-  );
+  background:
+    radial-gradient(
+      ellipse 72% 62% at 50% 42%,
+      rgba(20,18,16,0.00) 0%,
+      rgba(20,18,16,0.06) 32%,
+      rgba(20,18,16,0.48) 70%,
+      rgba(20,18,16,0.68) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 88%,
+      rgba(0,0,0,0.55) 93%,
+      #000000 100%
+    );
   z-index: 1;
 }
 
@@ -569,23 +579,21 @@ body.nav-open { overflow: hidden; }
   50%       { opacity: 0.3; transform: scaleY(0.5); }
 }
 
-/* ─── 9. Stats — gradiente che parte scuro e arriva a #767676 ── */
+/* ─── 9. Stats — parte da #000 (= hero bottom) → #767676 ─────── */
 .stats {
-  /* margin-top negativo chiude qualsiasi artefatto sub-pixel col hero */
-  margin-top: -2px;
+  margin-top: -2px;   /* chiude artefatto sub-pixel */
   position: relative;
   z-index: 1;
   padding-block: var(--sp-xxl);
-  /* Top: quasi nero (= colore fondo hero) → #767676 nel primo ~35% */
   background: linear-gradient(
     to bottom,
-    #080706 0%,
-    #141210 6%,
-    #2c2a27 16%,
-    #484644 28%,
-    #626060 38%,
-    #6e6c6c 46%,
-    #767676 55%,
+    #000000 0%,    /* identico all'overlay hero al 100% → match perfetto */
+    #0e0d0c 5%,
+    #232120 14%,
+    #3e3c3a 26%,
+    #585656 38%,
+    #696767 47%,
+    #767676 56%,
     #767676 100%
   );
 }
