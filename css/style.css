@@ -156,23 +156,26 @@ p { color: var(--text-dark-muted); font-weight: 400; }
 .section-title { font-size: var(--text-section); color: var(--text-dark); }
 
 /* ── Gradiente oro radiale + shimmer random via JS ── */
-/* @property permette l'animazione CSS della posizione del cerchio radiale */
+/* @property anima la posizione del cerchio radiale sul testo dorato */
 @property --shimmer-x {
   syntax: '<percentage>';
   inherits: false;
-  initial-value: 150%; /* parcheggiato off-screen: oro piatto di default */
+  initial-value: 50%;
 }
 
-/* Sweep del punto luminoso da sinistra verso destra — simula un riflesso su oro curvo */
+/*
+ * Il punto luminoso oscilla lentamente da sinistra a destra e ritorna
+ * (alternate): nessun salto, animazione quasi completamente continua.
+ * Durata 11s per direzione → ciclo completo ~22s, movimento impercettibile.
+ */
 @keyframes goldRadialSweep {
-  0%   { --shimmer-x: -30%; }
-  100% { --shimmer-x: 130%; }
+  from { --shimmer-x: 5%; }
+  to   { --shimmer-x: 95%; }
 }
 
 .text-gold,
 h1 em.text-gold,
 h2 .text-gold {
-  /* Gradiente radiale: centro brillante che viaggia con --shimmer-x */
   background: radial-gradient(
     circle at var(--shimmer-x) 50%,
     #fff8ec 0%,
@@ -185,22 +188,12 @@ h2 .text-gold {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: #C2A882; /* fallback no background-clip */
+  color: #C2A882;
   font-style: italic;
   font-weight: 400;
-  /*
-   * Fix clipping: il corsivo (italic) sporge a destra oltre il bounding box.
-   * Con background-clip:text il background si ferma al bordo del box →
-   * le ultime lettere appaiono tagliate. Il padding-right estende il background
-   * abbastanza da coprire l'overhang dell'italic senza alterare il layout.
-   */
-  padding-right: 0.18em;
-  /* Nessuna animazione di default: il JS aggiunge .is-shimmering a random */
-}
-
-/* Attivato via JS a intervalli casuali */
-.text-gold.is-shimmering {
-  animation: goldRadialSweep 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  padding-right: 0.18em; /* fix italic overhang clipping */
+  /* Continuo, molto lento, alternate → nessun salto al reset */
+  animation: goldRadialSweep 11s ease-in-out infinite alternate;
 }
 
 .eyebrow {

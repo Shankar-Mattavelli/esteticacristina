@@ -43,8 +43,7 @@
     initCountersFallback();
   }
 
-  /* Avvia sempre, indipendente da GSAP */
-  initGoldShimmer();
+  /* Gold shimmer: gestito interamente via CSS animation (nessun JS necessario) */
 
   /* ──────────────────────────────────────────────
    * Fallback: mostra tutto immediatamente
@@ -195,40 +194,9 @@
     }, 4200);
   }
 
-  /* ══════════════════════════════════════════════
-   * GOLD SHIMMER — trigger random su .text-gold
-   *
-   * L'animazione è radiale (@property --shimmer-x):
-   * un punto brillante swepa da sinistra a destra,
-   * come un riflesso su una superficie d'oro curva.
-   *
-   * Parte automaticamente ogni 4-11s in modo casuale.
-   * Nessun trigger hover (rimosso per scelta estetica).
-   * ══════════════════════════════════════════════ */
-  function initGoldShimmer() {
-    const goldEls = document.querySelectorAll('.text-gold');
-    if (!goldEls.length) return;
-    if (prefersReducedMotion) return;
-
-    function fire() {
-      goldEls.forEach(el => {
-        el.classList.remove('is-shimmering');
-        void el.offsetWidth; /* force reflow: resetta l'animazione CSS */
-        el.classList.add('is-shimmering');
-      });
-
-      /* Rimuovi classe dopo che l'animazione termina (1.8s + margine) */
-      setTimeout(() => {
-        goldEls.forEach(el => el.classList.remove('is-shimmering'));
-      }, 2200);
-
-      /* Prossimo fire: random tra 4 e 11 secondi */
-      setTimeout(fire, 4000 + Math.random() * 7000);
-    }
-
-    /* Prima esecuzione: random tra 3 e 6s (dopo le animazioni di entrata) */
-    setTimeout(fire, 3000 + Math.random() * 3000);
-  }
+  /* Gold shimmer: animazione continua gestita interamente via CSS —
+     @keyframes goldRadialSweep + animation-direction:alternate
+     Nessuna logica JS necessaria. */
 
   /* ══════════════════════════════════════════════
    * REVEALS — ScrollTrigger batch
