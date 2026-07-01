@@ -436,28 +436,18 @@ body.nav-open { overflow: hidden; }
   will-change: transform;
 }
 
-/* Overlay hero: vignette radiale (leggibilità viso) +
-   nero solido sull'ultimo 7% (zona sotto "SCOPRI" — nessun contenuto lì).
-   Questo crea un bordo inferiore con colore PIATTO e NOTO (#000)
-   così la sezione stats può matcharlo pixel-perfect. */
+/* Overlay hero: solo vignette radiale per leggibilità viso.
+   Nessun effetto sul fondo — la transizione è gestita dall'immagine custom. */
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(
-      ellipse 72% 62% at 50% 42%,
-      rgba(20,18,16,0.00) 0%,
-      rgba(20,18,16,0.06) 32%,
-      rgba(20,18,16,0.48) 70%,
-      rgba(20,18,16,0.68) 100%
-    ),
-    linear-gradient(
-      to bottom,
-      transparent 0%,
-      transparent 88%,
-      rgba(0,0,0,0.55) 93%,
-      #000000 100%
-    );
+  background: radial-gradient(
+    ellipse 72% 62% at 50% 42%,
+    rgba(20,18,16,0.00) 0%,
+    rgba(20,18,16,0.06) 32%,
+    rgba(20,18,16,0.48) 70%,
+    rgba(20,18,16,0.68) 100%
+  );
   z-index: 1;
 }
 
@@ -579,23 +569,29 @@ body.nav-open { overflow: hidden; }
   50%       { opacity: 0.3; transform: scaleY(0.5); }
 }
 
-/* ─── 9. Stats — parte da #000 (= hero bottom) → #767676 ─────── */
+/* ─── Immagine di transizione custom hero → stats ──────────────
+   L'img va da: colore fondo hero (in basso) → #767676 (in alto).
+   Salva il file in assets/images/varie/hero-transition.png
+   Larghezza consigliata: 1920px, altezza: 300-400px.
+   ─────────────────────────────────────────────────────────────── */
+.hero-transition {
+  display: block;
+  line-height: 0;
+  margin-top: -2px; /* chiude eventuale gap sub-pixel con la hero */
+}
+.hero-transition img {
+  width: 100%;
+  display: block;
+  /* Se l'img non è ancora caricata, nascondi l'area */
+  min-height: 0;
+}
+/* Fallback mentre l'img non c'è: sfondo trasparente */
+.hero-transition:not(:has(img[src])) { display: none; }
+
+/* ─── 9. Stats — piatto #767676, transizione affidata all'img custom ── */
 .stats {
-  margin-top: -2px;   /* chiude artefatto sub-pixel */
-  position: relative;
-  z-index: 1;
+  background-color: #767676;
   padding-block: var(--sp-xxl);
-  background: linear-gradient(
-    to bottom,
-    #000000 0%,    /* identico all'overlay hero al 100% → match perfetto */
-    #0e0d0c 5%,
-    #232120 14%,
-    #3e3c3a 26%,
-    #585656 38%,
-    #696767 47%,
-    #767676 56%,
-    #767676 100%
-  );
 }
 
 .stats .eyebrow {
