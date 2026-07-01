@@ -426,7 +426,17 @@ body.nav-open { overflow: hidden; }
   background: linear-gradient(135deg, #1c1a18 0%, #1a1816 45%, #1c1a18 100%);
 }
 
-.hero__media,
+.hero__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* Corregge il centro ottico: il viso nel ritratto è ~12px a sinistra
+     del centro geometrico dell'immagine. Shift del container (non img)
+     così non interferisce con GSAP che anima solo l'img interna. */
+  transform: translateX(12px);
+}
+
 .hero__media img {
   position: absolute;
   inset: 0;
